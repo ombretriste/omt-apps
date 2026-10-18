@@ -81,7 +81,7 @@ const APPS = [
       'Sincronización entre dispositivos',
     ],
     tags: ['Avisos', 'Nube'],
-    url: '',
+    url: 'https://task-app-six-vert.vercel.app/',
   },
   {
     id: 'upto40',
