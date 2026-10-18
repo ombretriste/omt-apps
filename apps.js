@@ -24,7 +24,7 @@ const APPS = [
       'Evolución histórica y proyecciones',
     ],
     tags: ['Nube', 'Perfiles'],
-    url: '',
+    url: 'https://finanzas-app-gules-three.vercel.app/',
   },
   {
     id: 'payctrl',
@@ -43,7 +43,7 @@ const APPS = [
       'Vínculo con UnderCTRL',
     ],
     tags: ['Nube', 'PDF'],
-    url: '',
+    url: 'https://nominas-app-rho.vercel.app/',
   },
   {
     id: 'docctrl',
