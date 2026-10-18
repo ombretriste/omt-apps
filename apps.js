@@ -100,7 +100,7 @@ const APPS = [
       'Exporta e importa el calendario',
     ],
     tags: ['Sin conexión'],
-    url: '',
+    url: 'https://teletrabajo-one.vercel.app/',
   },
   {
     id: 'randomit',
