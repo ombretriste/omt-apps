@@ -62,7 +62,7 @@ const APPS = [
       'Toca un dato para copiarlo',
     ],
     tags: ['Avisos', 'Fotos'],
-    url: '',
+    url: 'https://doc-app-lovat.vercel.app/',
   },
   {
     id: 'taskctrl',
