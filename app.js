@@ -1,7 +1,7 @@
 /* =====================================================================
    OmT Apps — portal con todas las apps de OmT Finance (datos en apps.js)
    ===================================================================== */
-const APP_VERSION = '0.1.0';
+const APP_VERSION = '0.2.0';
 const DISPLAY_KEY = 'omtapps:display';
 
 const $ = (id) => document.getElementById(id);
@@ -45,7 +45,7 @@ function logoSVG(size) {
 document.querySelectorAll('[data-logo]').forEach((el) => { el.innerHTML = logoSVG(Number(el.dataset.logo)); });
 $('app-version').textContent = `Versión ${APP_VERSION}`;
 $('footer-version').textContent = `Versión ${APP_VERSION}`;
-$('privacy-icon').innerHTML = icon('shield', 22);
+$('privacy-icon').innerHTML = icon('shield', 15);
 
 function load(key, fallback) {
   try {
@@ -74,7 +74,129 @@ function toast(text) {
   setTimeout(() => t.remove(), 2200);
 }
 
-// ---------- Tarjetas de las apps ----------
+// ---------- Intro ----------
+// Los iconos llegan volando desde fuera, orbitan el logo, se colocan en fila y aparece la frase.
+// «Saltar» (o un enlace directo a una app, #underctrl…) va directamente al final.
+
+const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+const TITLE = [['Apps'], ['sencillas'], ['para'], ['tu'], ['día', 1], ['a', 1], ['día.', 1]];
+const T_ORBIT = 1300;   // empiezan a girar
+const T_ROW = 3100;     // dejan el círculo
+const T_END = 3900;     // en fila
+let introTimers = [];
+let introDone = false;
+
+function buildIntro() {
+  const n = APPS.length;
+  const vw = innerWidth;
+  const ii = Math.round(Math.max(36, Math.min(64, (vw - 32 - (n - 1) * 12) / n)));
+  const ring = Math.round(Math.min(150, vw * 0.34, innerHeight * 0.2));
+  const stage = $('intro-stage');
+  stage.style.setProperty('--ii', `${ii}px`);
+  stage.style.setProperty('--ring', `${ring}px`);
+  $('orbit').style.setProperty('--gap', '12px');
+  $('orbit').innerHTML = APPS.map((a, i) =>
+    `<span class="ip" style="--c:${a.color};--i:${i}"><span class="ir"><img src="icons/apps/${a.id}.svg" alt="" /></span></span>`).join('');
+  $('intro-title').innerHTML = TITLE.map(([w, g]) => `<span class="w${g ? ' g' : ''}" aria-hidden="true">${w}</span>`).join(' ');
+  return { n, ii, ring, vw };
+}
+
+function playIntro() {
+  const { n, ii, ring, vw } = buildIntro();
+  if (reduceMotion()) return finishIntro();
+  const far = Math.hypot(vw, innerHeight) * 0.62;
+  const ease = 'cubic-bezier(.2, .8, .2, 1)';
+  const swing = 'cubic-bezier(.6, 0, .2, 1)';
+
+  [...$('orbit').children].forEach((ip, i) => {
+    const ang = (-90 + (i * 360) / n) * (Math.PI / 180);
+    const from = Math.random() * Math.PI * 2;
+    const sx = Math.cos(from) * far;
+    const sy = Math.sin(from) * far;
+    const cx = Math.cos(ang) * ring;
+    const cy = Math.sin(ang) * ring;
+    const rx = (i - (n - 1) / 2) * (ii + 12);
+    const spin = (Math.random() < 0.5 ? -1 : 1) * (120 + Math.random() * 120);
+    const start = (i * 110) / T_END;
+    const land = (950 + i * 110) / T_END;
+    ip.animate([
+      { offset: 0, transform: `translate(${sx}px, ${sy}px) rotate(${spin}deg) scale(.3)`, opacity: 0 },
+      { offset: start, transform: `translate(${sx}px, ${sy}px) rotate(${spin}deg) scale(.3)`, opacity: 0, easing: ease },
+      { offset: land, transform: `translate(${cx}px, ${cy}px) rotate(0deg) scale(1)`, opacity: 1 },
+      { offset: T_ROW / T_END, transform: `translate(${cx}px, ${cy}px) rotate(0deg) scale(1)`, opacity: 1, easing: swing },
+      { offset: 1, transform: `translate(${rx}px, 0px) rotate(0deg) scale(1)`, opacity: 1 },
+    ], { duration: T_END, fill: 'forwards' });
+    // Cada icono gira al revés que la órbita para seguir derecho
+    ip.firstElementChild.animate([
+      { transform: 'rotate(0deg)' },
+      { offset: T_ORBIT / T_ROW, transform: 'rotate(0deg)', easing: 'cubic-bezier(.45, 0, .25, 1)' },
+      { transform: 'rotate(-360deg)' },
+    ], { duration: T_ROW, fill: 'forwards' });
+  });
+  $('orbit').animate([
+    { transform: 'rotate(0deg)' },
+    { offset: T_ORBIT / T_ROW, transform: 'rotate(0deg)', easing: 'cubic-bezier(.45, 0, .25, 1)' },
+    { transform: 'rotate(360deg)' },
+  ], { duration: T_ROW, fill: 'forwards' });
+  $('intro-logo').animate([
+    { opacity: 0, transform: 'translate(-50%, -50%) scale(.6)' },
+    { offset: 0.2, opacity: 0, transform: 'translate(-50%, -50%) scale(.6)', easing: ease },
+    { offset: 0.4, opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
+    { offset: 0.85, opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
+    { opacity: 0, transform: 'translate(-50%, -50%) scale(.7)' },
+  ], { duration: T_ROW + 300, fill: 'forwards' });
+
+  const at = (ms, fn) => introTimers.push(setTimeout(fn, ms));
+  at(T_ROW - 100, () => $('intro').classList.add('compact'));
+  at(T_END, () => toRow());
+  const words = [...$('intro-title').children];
+  words.forEach((w, k) => at(T_END - 300 + k * 120, () => w.classList.add('on')));
+  const tEnd = T_END - 300 + words.length * 120;
+  at(tEnd + 200, () => $('intro-by').classList.add('on'));
+  at(tEnd + 600, () => finishIntro());
+}
+
+// Los iconos quedan en una fila estática que flota suavemente
+function toRow() {
+  const orbit = $('orbit');
+  orbit.getAnimations({ subtree: true }).forEach((a) => a.cancel());
+  orbit.classList.add('row');
+}
+
+function finishIntro() {
+  if (introDone) return;
+  introDone = true;
+  introTimers.forEach(clearTimeout);
+  introTimers = [];
+  $('intro-logo').getAnimations().forEach((a) => a.cancel());
+  $('intro-logo').style.opacity = '0';
+  toRow();
+  $('intro').classList.add('compact', 'done');
+  $('intro-title').querySelectorAll('.w').forEach((w) => w.classList.add('on'));
+  $('intro-by').classList.add('on');
+  $('intro-enter').classList.add('on');
+}
+$('skip-btn').addEventListener('click', finishIntro);
+
+function enter(instant = false) {
+  const body = document.body;
+  if (body.classList.contains('entering')) return;
+  const done = () => {
+    $('intro')?.remove();
+    body.classList.remove('booting', 'entering');
+    const id = location.hash.slice(1);
+    const a = APPS.find((x) => x.id === id);
+    goTo(a ? sections.findIndex((s) => s.id === a.section) : current, false);
+    onRailScroll();
+    if (a) openDetail(id, { push: false });
+  };
+  if (instant) return done();
+  body.classList.add('entering');
+  setTimeout(done, 850);
+}
+$('enter-btn').addEventListener('click', () => enter());
+
+// ---------- Bloques deslizables (uno por sección) ----------
 
 const appStyle = (a) => `--c:${a.color};--g:${a.grad}`;
 const appIcon = (a, size) => `<img class="app-icon" src="icons/apps/${a.id}.svg" width="${size}" height="${size}" alt="" />`;
@@ -85,50 +207,166 @@ function openButton(a, label = 'Abrir') {
     : '<span class="btn soon">Próximamente</span>';
 }
 
-function renderApps() {
-  $('s-count').textContent = APPS.length;
-  $('sections').innerHTML = SECTIONS.map((s) => {
+const rail = $('rail');
+const sections = SECTIONS.filter((s) => APPS.some((a) => a.section === s.id));
+let current = 0;
+
+function renderBlocks() {
+  const pad = (n) => String(n).padStart(2, '0');
+  rail.innerHTML = sections.map((s, si) => {
     const apps = APPS.filter((a) => a.section === s.id);
-    if (!apps.length) return '';
     return `
-      <section>
-        <p class="label section-title">${s.title}</p>
-        <div class="app-grid">
-          ${apps.map((a) => `
-            <article class="card app-card" style="${appStyle(a)}" data-app="${a.id}" tabindex="0" aria-label="${a.plain}">
-              <div class="ac-head">
-                ${appIcon(a, 58)}
-                <div class="ac-name-wrap">
-                  <h2 class="ac-name">${a.name}</h2>
-                  <p class="ac-tagline">${a.tagline}</p>
-                </div>
-              </div>
-              <div class="ac-meta">
-                <span class="pill ver">v${a.version}</span>
-                ${a.tags.map((t) => `<span class="pill">${t}</span>`).join('')}
-              </div>
-              <div class="ac-actions">
-                <button class="btn" type="button" data-info>${icon('info', 18)}<span>Detalles</span></button>
-                ${openButton(a)}
-              </div>
-            </article>`).join('')}
+      <section class="block" style="--s1:${s.c1};--s2:${s.c2}" data-sec="${s.id}" aria-label="${s.title}">
+        <div class="block-card">
+          <span class="glow a"></span><span class="glow b"></span>
+          <div class="block-head">
+            <p class="block-num">${pad(si + 1)} / ${pad(sections.length)}</p>
+            <h2 class="block-title">${s.title}</h2>
+            <p class="block-text">${s.text}</p>
+          </div>
+          <div class="tiles">
+            ${apps.map((a, i) => `
+              <button class="tile" type="button" style="${appStyle(a)};--i:${i};--z:${8 + ((i * 7) % 3) * 5}" data-app="${a.id}" aria-label="${a.plain}: ${a.tagline}">
+                <span class="tile-icon"><img src="icons/apps/${a.id}.svg" alt="" draggable="false" /></span>
+                <span class="tile-name">${a.name}</span>
+                <span class="tile-tag">${a.tagline}</span>
+              </button>`).join('')}
+          </div>
         </div>
       </section>`;
   }).join('');
+
+  $('tabs').innerHTML = `<span class="tab-ind" id="tab-ind"></span>${sections.map((s, i) =>
+    `<button class="tab" type="button" data-i="${i}">${s.title}</button>`).join('')}`;
 }
 
-// Toda la tarjeta abre la ficha, salvo el botón «Abrir», que va directo a la app
-$('sections').addEventListener('click', (e) => {
-  if (e.target.closest('[data-open]')) return;
-  const card = e.target.closest('[data-app]');
-  if (card) openDetail(card.dataset.app);
-});
-$('sections').addEventListener('keydown', (e) => {
-  const card = e.target.closest?.('[data-app]');
-  if (card && e.target === card && (e.key === 'Enter' || e.key === ' ')) {
-    e.preventDefault();
-    openDetail(card.dataset.app);
+const blocks = () => [...rail.querySelectorAll('.block')];
+
+// Desplazamiento que centra el bloque i
+const blockLeft = (i) => {
+  const b = blocks()[i];
+  return b ? b.offsetLeft + b.offsetWidth / 2 - rail.clientWidth / 2 : 0;
+};
+
+function goTo(i, smooth = true) {
+  i = Math.max(0, Math.min(sections.length - 1, i));
+  rail.scrollTo({ left: blockLeft(i), behavior: smooth && !reduceMotion() ? 'smooth' : 'auto' });
+  setCurrent(i);
+}
+
+function setCurrent(i) {
+  current = i;
+  blocks().forEach((b, k) => {
+    b.classList.toggle('current', k === i);
+    if (k === i) b.classList.add('seen');
+  });
+  const tabs = [...$('tabs').querySelectorAll('.tab')];
+  tabs.forEach((t, k) => t.classList.toggle('on', k === i));
+  const t = tabs[i];
+  const ind = $('tab-ind');
+  if (t && ind) {
+    ind.style.width = `${t.offsetWidth}px`;
+    ind.style.transform = `translateX(${t.offsetLeft}px)`;
+    ind.style.setProperty('--t1', sections[i].c1);
+    ind.style.setProperty('--t2', sections[i].c2);
   }
+  $('rail-prev').disabled = i === 0;
+  $('rail-next').disabled = i === sections.length - 1;
+}
+
+// Efecto carrusel: los bloques laterales giran y se alejan según su distancia al centro
+let frame = 0;
+function onRailScroll() {
+  if (frame) return;
+  frame = requestAnimationFrame(() => {
+    frame = 0;
+    const mid = rail.scrollLeft + rail.clientWidth / 2;
+    let best = 0;
+    let bestD = Infinity;
+    blocks().forEach((b, k) => {
+      const step = b.offsetWidth + 18;
+      const d = Math.max(-1, Math.min(1, (b.offsetLeft + b.offsetWidth / 2 - mid) / step));
+      b.style.setProperty('--d', d.toFixed(3));
+      b.style.setProperty('--ad', Math.abs(d).toFixed(3));
+      if (Math.abs(d) < bestD) { bestD = Math.abs(d); best = k; }
+    });
+    if (best !== current || !blocks()[best]?.classList.contains('current')) setCurrent(best);
+  });
+}
+rail.addEventListener('scroll', onRailScroll, { passive: true });
+window.addEventListener('resize', () => { goTo(current, false); onRailScroll(); });
+
+$('tabs').addEventListener('click', (e) => {
+  const t = e.target.closest('.tab');
+  if (t) goTo(Number(t.dataset.i));
+});
+$('rail-prev').addEventListener('click', () => goTo(current - 1));
+$('rail-next').addEventListener('click', () => goTo(current + 1));
+
+// Arrastrar con el ratón (con el dedo ya se desliza solo)
+let drag = null;
+let justDragged = false;
+rail.addEventListener('pointerdown', (e) => {
+  if (e.pointerType !== 'mouse' || e.button !== 0) return;
+  drag = { x: e.clientX, left: rail.scrollLeft, moved: false, id: e.pointerId };
+});
+window.addEventListener('pointermove', (e) => {
+  if (!drag) return;
+  const dx = e.clientX - drag.x;
+  if (!drag.moved && Math.abs(dx) > 6) {
+    drag.moved = true;
+    rail.classList.add('dragging');
+  }
+  if (drag.moved) rail.scrollLeft = drag.left - dx;
+});
+window.addEventListener('pointerup', (e) => {
+  if (!drag) return;
+  const dx = e.clientX - drag.x;
+  const moved = drag.moved;
+  drag = null;
+  if (!moved) return;
+  rail.classList.remove('dragging');
+  justDragged = true;
+  setTimeout(() => { justDragged = false; }, 0);
+  // Basta un arrastre corto para pasar de bloque
+  const start = current;
+  goTo(Math.abs(dx) > 60 ? start + (dx < 0 ? 1 : -1) : start);
+});
+rail.addEventListener('click', (e) => {
+  if (justDragged) { e.stopPropagation(); e.preventDefault(); return; }
+  const tile = e.target.closest('.tile');
+  if (tile) openDetail(tile.dataset.app);
+}, true);
+
+// Rueda del ratón: un bloque por gesto (el desplazamiento lateral del trackpad va solo)
+let wheelLock = 0;
+let wheelAcc = 0;
+$('rail').parentElement.addEventListener('wheel', (e) => {
+  if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+  const tiles = e.target.closest('.tiles');
+  if (tiles && tiles.scrollHeight > tiles.clientHeight + 2) return;
+  e.preventDefault();
+  if (Date.now() < wheelLock) return;
+  wheelAcc += e.deltaY;
+  if (Math.abs(wheelAcc) > 40) {
+    goTo(current + (wheelAcc > 0 ? 1 : -1));
+    wheelAcc = 0;
+    wheelLock = Date.now() + 650;
+  }
+}, { passive: false });
+
+// Teclado: flechas izquierda y derecha
+document.addEventListener('keydown', (e) => {
+  if (document.body.classList.contains('booting') || document.querySelector('.sheet-backdrop')) return;
+  if (e.key === 'ArrowRight') goTo(current + 1);
+  if (e.key === 'ArrowLeft') goTo(current - 1);
+});
+
+// Paralaje: iconos y luces siguen al ratón (de -1 a 1 desde el centro de la pantalla)
+window.addEventListener('pointermove', (e) => {
+  if (e.pointerType !== 'mouse' || reduceMotion()) return;
+  rail.style.setProperty('--px', ((e.clientX / innerWidth) * 2 - 1).toFixed(3));
+  rail.style.setProperty('--py', ((e.clientY / innerHeight) * 2 - 1).toFixed(3));
 });
 
 // ---------- Ficha de una app ----------
@@ -340,30 +578,15 @@ function openDisplaySheet() {
   draw();
 }
 
-// ---------- Pantalla de inicio ----------
-// Un enlace directo a una app (#underctrl…) se salta la pantalla de inicio y abre su ficha.
-
-function enter(instant = false) {
-  const body = document.body;
-  if (body.classList.contains('entering')) return;
-  const done = () => {
-    $('splash')?.remove();
-    body.classList.remove('booting', 'entering');
-    const id = location.hash.slice(1);
-    if (APPS.some((a) => a.id === id)) openDetail(id, { push: false });
-  };
-  if (instant) return done();
-  body.classList.add('entering');
-  setTimeout(done, 820);
-}
-$('enter-btn').addEventListener('click', () => enter());
-
-// ---------- Siempre en vertical (en el móvil) ----------
-try { screen.orientation?.lock?.('portrait').catch(() => {}); } catch (_) { /* no compatible */ }
-
 applyDisplay();
-renderApps();
-if (APPS.some((a) => a.id === location.hash.slice(1))) enter(true);
+renderBlocks();
+setCurrent(0);
+if (APPS.some((a) => a.id === location.hash.slice(1))) {
+  introDone = true;
+  enter(true);
+} else {
+  playIntro();
+}
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));

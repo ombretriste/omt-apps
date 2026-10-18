@@ -1,9 +1,10 @@
 // Catálogo de apps. Para añadir una: copia su icons/icon.svg a icons/apps/<id>.svg y añade una entrada.
 // url vacía = se muestra como «Próximamente».
+// Cada sección es un bloque deslizable; c1/c2 tiñen su fondo
 const SECTIONS = [
-  { id: 'finanzas', title: 'Finanzas' },
-  { id: 'dia', title: 'Día a día' },
-  { id: 'ocio', title: 'Ocio' },
+  { id: 'finanzas', title: 'Finanzas', text: 'Tu dinero y tus nóminas, al detalle.', c1: '#7c8cff', c2: '#34d399' },
+  { id: 'dia', title: 'Día a día', text: 'Documentos, tareas y teletrabajo, bajo control.', c1: '#fbbf24', c2: '#e879f9' },
+  { id: 'ocio', title: 'Ocio', text: 'Para cuando toca probar suerte.', c1: '#b57cff', c2: '#f472b6' },
 ];
 
 const APPS = [

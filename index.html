@@ -7,7 +7,7 @@
   <meta name="description" content="Las apps de OmT Finance: UnderCTRL, PayCTRL, DocCTRL, TaskCTRL, Up to 40% y RandomIt. Gratis, instalables y con tus datos en tu móvil." />
   <meta name="theme-color" content="#0a0a12" />
   <meta property="og:title" content="OmT Apps" />
-  <meta property="og:description" content="Apps sencillas para tus finanzas, tus documentos, tus tareas y tu día a día." />
+  <meta property="og:description" content="Apps sencillas para tu día a día: finanzas, nóminas, documentos, tareas y más." />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
@@ -28,25 +28,27 @@
   </script>
 </head>
 <body class="booting">
-  <!-- Pantalla de inicio -->
-  <div id="splash" class="splash">
-    <div class="sp-top">
-      <span class="logo-slot" data-logo="132"></span>
-      <div class="wordmark">
-        <span class="wm-name">OmT <b>Apps</b></span>
-        <span class="wm-by">by OmT Finance</span>
-      </div>
+  <!-- Intro: los iconos llegan volando, orbitan el logo y se ponen en fila; luego la frase y Entrar -->
+  <div id="intro" class="intro">
+    <button id="skip-btn" class="skip-btn" type="button">Saltar</button>
+    <div class="intro-stage" id="intro-stage">
+      <span class="intro-logo logo-slot" id="intro-logo" data-logo="104"></span>
+      <div class="orbit" id="orbit"></div>
     </div>
-    <div class="sp-bottom">
-      <button id="enter-btn" class="sp-enter" type="button" aria-label="Entrar">
-        <svg viewBox="0 0 24 24" width="42" height="42" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5"/></svg>
-      </button>
-      <p class="sp-label">Entrar</p>
+    <div class="intro-copy">
+      <h1 class="intro-title" id="intro-title" aria-label="Apps sencillas para tu día a día."></h1>
+      <p class="intro-by" id="intro-by">OmT Apps · by OmT Finance</p>
+      <div class="intro-enter" id="intro-enter">
+        <button id="enter-btn" class="sp-enter" type="button" aria-label="Entrar">
+          <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5"/></svg>
+        </button>
+        <p class="sp-label">Entrar</p>
+      </div>
     </div>
     <p class="sp-version" id="app-version"></p>
   </div>
 
-  <!-- App -->
+  <!-- Página de apps: un bloque por sección, deslizables -->
   <div id="app" class="app">
     <header class="topbar">
       <div class="brand-wrap">
@@ -58,35 +60,22 @@
       </button>
     </header>
 
-    <main>
-      <section class="card hero">
-        <p class="label">Todas las apps</p>
-        <h1 class="hero-title">Apps sencillas para tu <b>día a día</b>.</h1>
-        <p class="hero-text">Finanzas, nóminas, documentos, tareas y teletrabajo, cada una en su app. Gratis, sin anuncios y se instalan en el móvil como una app más.</p>
-        <dl class="tiles">
-          <div><dt>Apps</dt><dd id="s-count">0</dd></div>
-          <div><dt>Precio</dt><dd>0 €</dd></div>
-          <div><dt>Anuncios</dt><dd>0</dd></div>
-        </dl>
-      </section>
+    <nav class="tabs" id="tabs" aria-label="Secciones"></nav>
 
-      <div id="sections"></div>
+    <div class="rail-wrap">
+      <button class="icon-btn rail-arrow prev" id="rail-prev" type="button" aria-label="Sección anterior">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <div class="rail" id="rail"></div>
+      <button class="icon-btn rail-arrow next" id="rail-next" type="button" aria-label="Sección siguiente">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
 
-      <section class="card privacy">
-        <span class="privacy-icon" id="privacy-icon"></span>
-        <div>
-          <p class="privacy-title">Tus datos, en tu dispositivo</p>
-          <p class="muted small">Cada app guarda la información en tu móvil o tu ordenador. La sincronización en la nube es opcional y solo se activa si creas una cuenta dentro de la app.</p>
-        </div>
-      </section>
-
-      <p class="footer muted">OmT = OmbreTriste · <span id="footer-version"></span></p>
-    </main>
-  </div>
-
-  <div class="rotate-hint" aria-hidden="true">
-    <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></svg>
-    <p>Gira el móvil a vertical</p>
+    <footer class="footer">
+      <span class="footer-privacy"><span id="privacy-icon"></span>Tus datos se quedan en tu dispositivo. La nube es opcional.</span>
+      <span class="muted" id="footer-version"></span>
+    </footer>
   </div>
 
   <div id="menu" class="menu" role="menu" hidden></div>
