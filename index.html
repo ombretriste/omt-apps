@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>OmT Apps</title>
+  <meta name="description" content="Las apps de OmT Finance: UnderCTRL, PayCTRL, DocCTRL, TaskCTRL, Up to 40% y RandomIt. Gratis, instalables y con tus datos en tu móvil." />
+  <meta name="theme-color" content="#0a0a12" />
+  <meta property="og:title" content="OmT Apps" />
+  <meta property="og:description" content="Apps sencillas para tus finanzas, tus documentos, tus tareas y tu día a día." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="OmT Apps" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    // Aplica tema y fondo antes de pintar (evita un destello del tema equivocado)
+    try {
+      var d = JSON.parse(localStorage.getItem('omtapps:display') || '{}');
+      var light = d.theme === 'light' || (d.theme !== 'dark' && matchMedia('(prefers-color-scheme: light)').matches);
+      document.documentElement.dataset.theme = light ? 'light' : 'dark';
+      document.documentElement.dataset.wall = d.wall || 'aurora';
+    } catch (e) {}
+  </script>
+</head>
+<body class="booting">
+  <!-- Pantalla de inicio -->
+  <div id="splash" class="splash">
+    <div class="sp-top">
+      <span class="logo-slot" data-logo="132"></span>
+      <div class="wordmark">
+        <span class="wm-name">OmT <b>Apps</b></span>
+        <span class="wm-by">by OmT Finance</span>
+      </div>
+    </div>
+    <div class="sp-bottom">
+      <button id="enter-btn" class="sp-enter" type="button" aria-label="Entrar">
+        <svg viewBox="0 0 24 24" width="42" height="42" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5"/></svg>
+      </button>
+      <p class="sp-label">Entrar</p>
+    </div>
+    <p class="sp-version" id="app-version"></p>
+  </div>
+
+  <!-- App -->
+  <div id="app" class="app">
+    <header class="topbar">
+      <div class="brand-wrap">
+        <span class="logo-slot" data-logo="30"></span>
+        <span class="brand">OmT <b>Apps</b></span>
+      </div>
+      <button id="menu-btn" class="icon-btn" aria-label="Más opciones" title="Más opciones" aria-haspopup="menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><g fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></g></svg>
+      </button>
+    </header>
+
+    <main>
+      <section class="card hero">
+        <p class="label">Todas las apps</p>
+        <h1 class="hero-title">Apps sencillas para tu <b>día a día</b>.</h1>
+        <p class="hero-text">Finanzas, nóminas, documentos, tareas y teletrabajo, cada una en su app. Gratis, sin anuncios y se instalan en el móvil como una app más.</p>
+        <dl class="tiles">
+          <div><dt>Apps</dt><dd id="s-count">0</dd></div>
+          <div><dt>Precio</dt><dd>0 €</dd></div>
+          <div><dt>Anuncios</dt><dd>0</dd></div>
+        </dl>
+      </section>
+
+      <div id="sections"></div>
+
+      <section class="card privacy">
+        <span class="privacy-icon" id="privacy-icon"></span>
+        <div>
+          <p class="privacy-title">Tus datos, en tu dispositivo</p>
+          <p class="muted small">Cada app guarda la información en tu móvil o tu ordenador. La sincronización en la nube es opcional y solo se activa si creas una cuenta dentro de la app.</p>
+        </div>
+      </section>
+
+      <p class="footer muted">OmT = OmbreTriste · <span id="footer-version"></span></p>
+    </main>
+  </div>
+
+  <div class="rotate-hint" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></svg>
+    <p>Gira el móvil a vertical</p>
+  </div>
+
+  <div id="menu" class="menu" role="menu" hidden></div>
+
+  <script src="apps.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

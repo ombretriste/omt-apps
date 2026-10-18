@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bg" cx="28%" cy="18%" r="95%">
+      <stop offset="0" stop-color="#fde68a"/><stop offset=".5" stop-color="#f59e0b"/><stop offset="1" stop-color="#ea580c"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <!-- Emblema de líneas finas dentro de la zona segura (≈70 %) -->
+  <g transform="translate(256 256) scale(2.9) translate(-60 -60)" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="60" cy="60" r="52" stroke-width="1.4" opacity=".55"/>
+    <circle cx="60" cy="60" r="42" stroke-width="1" stroke-dasharray="2 5" opacity=".7"/>
+    <path d="M60 8 A52 52 0 1 1 14.97 86" stroke-width="3.6"/>
+    <circle cx="14.97" cy="86" r="3.4" fill="#ffffff" stroke="none"/>
+    <rect x="33" y="43" width="54" height="36" rx="5" stroke-width="2.6"/>
+    <circle cx="47" cy="57" r="5" stroke-width="2.2"/>
+    <path d="M39 71c1.5-4 4.5-6 8-6s6.5 2 8 6" stroke-width="2.2"/>
+    <path d="M61 54h18M61 61h18M61 68h11" stroke-width="2.2"/>
+  </g>
+</svg>
