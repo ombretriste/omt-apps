@@ -118,6 +118,6 @@ const APPS = [
       'Animación del bombo',
     ],
     tags: ['Botes en vivo'],
-    url: '',
+    url: 'https://randomit-seven.vercel.app/',
   },
 ];
