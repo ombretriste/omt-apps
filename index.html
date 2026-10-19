@@ -28,24 +28,26 @@
   </script>
 </head>
 <body class="booting">
-  <!-- Intro: los iconos llegan volando, orbitan el logo y se ponen en fila; luego la frase y Entrar -->
+  <!-- Intro: los iconos llegan volando, orbitan el logo y aterrizan en su fila; luego la frase y Entrar -->
   <div id="intro" class="intro">
     <button id="skip-btn" class="skip-btn" type="button">Saltar</button>
-    <div class="intro-stage" id="intro-stage">
-      <span class="intro-logo logo-slot" id="intro-logo" data-logo="104"></span>
-      <div class="orbit" id="orbit"></div>
-    </div>
-    <div class="intro-copy">
+    <header class="intro-head" id="intro-head">
+      <span class="intro-wordmark">OmT <b>Apps</b></span>
+    </header>
+    <div class="intro-main">
+      <div class="icon-row" id="icon-row"></div>
       <h1 class="intro-title" id="intro-title" aria-label="Apps sencillas para tu día a día."></h1>
-      <p class="intro-by" id="intro-by">OmT Apps · by OmT Finance</p>
-      <div class="intro-enter" id="intro-enter">
-        <button id="enter-btn" class="sp-enter" type="button" aria-label="Entrar">
-          <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5"/></svg>
-        </button>
-        <p class="sp-label">Entrar</p>
-      </div>
     </div>
-    <p class="sp-version" id="app-version"></p>
+    <div class="intro-enter" id="intro-enter">
+      <button id="enter-btn" class="sp-enter" type="button" aria-label="Entrar">
+        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5"/></svg>
+      </button>
+      <p class="sp-label">Entrar</p>
+    </div>
+    <p class="intro-by" id="intro-by">by OmT Finance</p>
+    <!-- Durante la animación los iconos y el logo vuelan sobre todo lo demás, centrados en la pantalla -->
+    <span class="intro-logo logo-slot" id="intro-logo" data-logo="104"></span>
+    <div class="orbit" id="orbit"></div>
   </div>
 
   <!-- Página de apps: un bloque por sección, deslizables -->
@@ -74,7 +76,6 @@
 
     <footer class="footer">
       <span class="footer-privacy"><span id="privacy-icon"></span>Tus datos se quedan en tu dispositivo. La nube es opcional.</span>
-      <span class="muted" id="footer-version"></span>
     </footer>
   </div>
 

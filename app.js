@@ -1,7 +1,7 @@
 /* =====================================================================
    OmT Apps — portal con todas las apps de OmT Finance (datos en apps.js)
    ===================================================================== */
-const APP_VERSION = '0.2.6';
+const APP_VERSION = '0.3.0';
 const DISPLAY_KEY = 'omtapps:display';
 
 const $ = (id) => document.getElementById(id);
@@ -43,8 +43,6 @@ function logoSVG(size) {
     </svg>`;
 }
 document.querySelectorAll('[data-logo]').forEach((el) => { el.innerHTML = logoSVG(Number(el.dataset.logo)); });
-$('app-version').textContent = `Versión ${APP_VERSION}`;
-$('footer-version').textContent = `Versión ${APP_VERSION}`;
 $('privacy-icon').innerHTML = icon('shield', 15);
 
 function load(key, fallback) {
@@ -75,14 +73,15 @@ function toast(text) {
 }
 
 // ---------- Intro ----------
-// Los iconos llegan volando desde fuera, orbitan el logo, se colocan en fila y aparece la frase.
+// Los iconos llegan volando desde fuera, orbitan el logo, aterrizan uno a uno en su fila y aparece la frase.
 // «Saltar» (o un enlace directo a una app, #underctrl…) va directamente al final.
 
 const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 const TITLE = [['Apps'], ['sencillas'], ['para'], ['tu'], ['día', 1], ['a', 1], ['día.', 1]];
 const T_ORBIT = 1300;   // empiezan a girar
-const T_ROW = 3100;     // dejan el círculo
-const T_END = 3900;     // en fila
+const T_ROW = 3100;     // el primero deja el círculo
+const T_FLY = 1300;     // lo que tarda cada uno en llegar a la fila
+const T_GAP = 90;       // retraso entre un icono y el siguiente
 let introTimers = [];
 let introDone = false;
 
@@ -91,22 +90,30 @@ function buildIntro() {
   const vw = innerWidth;
   const ii = Math.round(Math.max(36, Math.min(64, (vw - 32 - (n - 1) * 12) / n)));
   const ring = Math.round(Math.min(150, vw * 0.34, innerHeight * 0.2));
-  const stage = $('intro-stage');
-  stage.style.setProperty('--ii', `${ii}px`);
-  stage.style.setProperty('--ring', `${ring}px`);
-  $('orbit').style.setProperty('--gap', '12px');
+  $('intro').style.setProperty('--ii', `${ii}px`);
+  $('icon-row').innerHTML = APPS.map((a, i) => `<span class="slot" style="--c:${a.color};--i:${i}"></span>`).join('');
   $('orbit').innerHTML = APPS.map((a, i) =>
     `<span class="ip" style="--c:${a.color};--i:${i}"><span class="ir"><img src="icons/apps/${a.id}.svg" alt="" /></span></span>`).join('');
   $('intro-title').innerHTML = TITLE.map(([w, g]) => `<span class="w${g ? ' g' : ''}" aria-hidden="true">${w}</span>`).join(' ');
-  return { n, ii, ring, vw };
+  return { n, ring, vw };
 }
 
 function playIntro() {
-  const { n, ii, ring, vw } = buildIntro();
+  const { n, ring, vw } = buildIntro();
   if (reduceMotion()) return finishIntro();
   const far = Math.hypot(vw, innerHeight) * 0.62;
   const ease = 'cubic-bezier(.2, .8, .2, 1)';
-  const swing = 'cubic-bezier(.6, 0, .2, 1)';
+  const glide = 'cubic-bezier(.65, 0, .35, 1)'; // arranque y llegada suaves
+  const total = T_ROW + T_FLY + (n - 1) * T_GAP;
+
+  // Destino de cada icono: el centro de su hueco en la fila, respecto al centro de la pantalla
+  const box = $('intro').getBoundingClientRect();
+  const midX = box.left + box.width / 2;
+  const midY = box.top + box.height / 2;
+  const slots = [...$('icon-row').children].map((s) => {
+    const r = s.getBoundingClientRect();
+    return [r.left + r.width / 2 - midX, r.top + r.height / 2 - midY];
+  });
 
   [...$('orbit').children].forEach((ip, i) => {
     const ang = (-90 + (i * 360) / n) * (Math.PI / 180);
@@ -115,17 +122,17 @@ function playIntro() {
     const sy = Math.sin(from) * far;
     const cx = Math.cos(ang) * ring;
     const cy = Math.sin(ang) * ring;
-    const rx = (i - (n - 1) / 2) * (ii + 12);
+    const [rx, ry] = slots[i];
     const spin = (Math.random() < 0.5 ? -1 : 1) * (120 + Math.random() * 120);
-    const start = (i * 110) / T_END;
-    const land = (950 + i * 110) / T_END;
+    const leave = T_ROW + i * T_GAP;
     ip.animate([
       { offset: 0, transform: `translate(${sx}px, ${sy}px) rotate(${spin}deg) scale(.3)`, opacity: 0 },
-      { offset: start, transform: `translate(${sx}px, ${sy}px) rotate(${spin}deg) scale(.3)`, opacity: 0, easing: ease },
-      { offset: land, transform: `translate(${cx}px, ${cy}px) rotate(0deg) scale(1)`, opacity: 1 },
-      { offset: T_ROW / T_END, transform: `translate(${cx}px, ${cy}px) rotate(0deg) scale(1)`, opacity: 1, easing: swing },
-      { offset: 1, transform: `translate(${rx}px, 0px) rotate(0deg) scale(1)`, opacity: 1 },
-    ], { duration: T_END, fill: 'forwards' });
+      { offset: (i * 110) / total, transform: `translate(${sx}px, ${sy}px) rotate(${spin}deg) scale(.3)`, opacity: 0, easing: ease },
+      { offset: (950 + i * 110) / total, transform: `translate(${cx}px, ${cy}px) rotate(0deg) scale(1)`, opacity: 1 },
+      { offset: leave / total, transform: `translate(${cx}px, ${cy}px) rotate(0deg) scale(1)`, opacity: 1, easing: glide },
+      { offset: (leave + T_FLY) / total, transform: `translate(${rx}px, ${ry}px) rotate(0deg) scale(1)`, opacity: 1 },
+      { offset: 1, transform: `translate(${rx}px, ${ry}px) rotate(0deg) scale(1)`, opacity: 1 },
+    ], { duration: total, fill: 'forwards' });
     // Cada icono gira al revés que la órbita para seguir derecho
     ip.firstElementChild.animate([
       { transform: 'rotate(0deg)' },
@@ -142,25 +149,27 @@ function playIntro() {
     { opacity: 0, transform: 'translate(-50%, -50%) scale(.6)' },
     { offset: 0.2, opacity: 0, transform: 'translate(-50%, -50%) scale(.6)', easing: ease },
     { offset: 0.4, opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
-    { offset: 0.85, opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
+    { offset: 0.8, opacity: 1, transform: 'translate(-50%, -50%) scale(1)', easing: glide },
     { opacity: 0, transform: 'translate(-50%, -50%) scale(.7)' },
-  ], { duration: T_ROW + 300, fill: 'forwards' });
+  ], { duration: T_ROW + 600, fill: 'forwards' });
 
   const at = (ms, fn) => introTimers.push(setTimeout(fn, ms));
-  at(T_ROW - 100, () => $('intro').classList.add('compact'));
-  at(T_END, () => toRow());
+  at(200, () => { $('intro-head').classList.add('on'); $('intro-by').classList.add('on'); });
+  at(total, () => toRow());
   const words = [...$('intro-title').children];
-  words.forEach((w, k) => at(T_END - 300 + k * 120, () => w.classList.add('on')));
-  const tEnd = T_END - 300 + words.length * 120;
-  at(tEnd + 200, () => $('intro-by').classList.add('on'));
-  at(tEnd + 600, () => finishIntro());
+  const tWords = T_ROW + T_FLY - 300;
+  words.forEach((w, k) => at(tWords + k * 130, () => w.classList.add('on')));
+  at(tWords + words.length * 130 + 500, () => finishIntro());
 }
 
-// Los iconos quedan en una fila estática que flota suavemente
+// Los iconos pasan de la animación a sus huecos de la fila (misma posición: no se nota) y flotan suavemente
 function toRow() {
   const orbit = $('orbit');
+  if (!orbit.children.length) return;
   orbit.getAnimations({ subtree: true }).forEach((a) => a.cancel());
-  orbit.classList.add('row');
+  const slots = [...$('icon-row').children];
+  [...orbit.querySelectorAll('img')].forEach((img, i) => slots[i]?.append(img));
+  orbit.innerHTML = '';
 }
 
 function finishIntro() {
@@ -171,9 +180,10 @@ function finishIntro() {
   $('intro-logo').getAnimations().forEach((a) => a.cancel());
   $('intro-logo').style.opacity = '0';
   toRow();
-  $('intro').classList.add('compact', 'done');
-  $('intro-title').querySelectorAll('.w').forEach((w) => w.classList.add('on'));
+  $('intro').classList.add('done');
+  $('intro-head').classList.add('on');
   $('intro-by').classList.add('on');
+  $('intro-title').querySelectorAll('.w').forEach((w) => w.classList.add('on'));
   $('intro-enter').classList.add('on');
 }
 $('skip-btn').addEventListener('click', finishIntro);
@@ -212,15 +222,13 @@ const sections = SECTIONS.filter((s) => APPS.some((a) => a.section === s.id));
 let current = 0;
 
 function renderBlocks() {
-  const pad = (n) => String(n).padStart(2, '0');
-  rail.innerHTML = sections.map((s, si) => {
+  rail.innerHTML = sections.map((s) => {
     const apps = APPS.filter((a) => a.section === s.id);
     return `
       <section class="block" style="--s1:${s.c1};--s2:${s.c2}" data-sec="${s.id}" aria-label="${s.title}">
         <div class="block-card">
           <span class="glow a"></span><span class="glow b"></span>
           <div class="block-head">
-            <p class="block-num">${pad(si + 1)} / ${pad(sections.length)}</p>
             <h2 class="block-title">${s.title}</h2>
             <p class="block-text">${s.text}</p>
           </div>
@@ -419,7 +427,6 @@ function openDetail(id, { push = true } = {}) {
         </div>
       </div>
       <div class="ac-meta">
-        <span class="pill ver">v${a.version}</span>
         ${a.tags.map((t) => `<span class="pill">${t}</span>`).join('')}
       </div>
       <p class="detail-text">${a.description}</p>
@@ -475,7 +482,53 @@ async function share(text, url) {
 const MENU = [
   { label: 'Compartir esta web', icon: 'share', run: () => share('Las apps de OmT Finance', `${location.origin}${location.pathname}`) },
   { label: 'Opciones de visualización', icon: 'palette', run: () => openDisplaySheet() },
+  { label: 'Información', icon: 'info', run: () => openInfoSheet() },
 ];
+
+// ---------- Información (menú ⋯): qué es, versiones, privacidad e instalación ----------
+
+function openInfoSheet() {
+  closeSheet();
+  const install = isIOS
+    ? 'En Safari, pulsa <b>Compartir</b> y elige <b>Añadir a pantalla de inicio</b>.'
+    : isAndroid
+      ? 'En Chrome, abre el menú <b>⋮</b> y elige <b>Instalar aplicación</b>.'
+      : 'En Chrome o Edge, pulsa el icono <b>Instalar</b> de la barra de direcciones.';
+  const back = document.createElement('div');
+  back.className = 'sheet-backdrop';
+  back.innerHTML = `
+    <div class="sheet info-sheet" role="dialog" aria-modal="true" aria-label="Información">
+      <button class="icon-btn sheet-close" type="button" aria-label="Cerrar">${icon('close', 18)}</button>
+      <div class="info-head">
+        ${logoSVG(56)}
+        <div>
+          <h2 class="sheet-title">OmT <b>Apps</b></h2>
+          <p class="muted small">by OmT Finance · OmT = OmbreTriste</p>
+        </div>
+      </div>
+      <p class="detail-text">Un escaparate con todas las apps de OmT Finance: sencillas, gratis y sin anuncios. Se usan desde el navegador y se instalan en el móvil como una app más.</p>
+      <dl class="info-stats">
+        <div><dt>Apps</dt><dd>${APPS.length}</dd></div>
+        <div><dt>Secciones</dt><dd>${sections.length}</dd></div>
+        <div><dt>Precio</dt><dd>0 €</dd></div>
+        <div><dt>Anuncios</dt><dd>0</dd></div>
+      </dl>
+      <p class="opt-label">Versiones</p>
+      <ul class="info-versions">
+        ${APPS.map((a) => `<li style="${appStyle(a)}">${appIcon(a, 30)}<span class="iv-name">${a.plain}</span><span class="iv-ver">${a.version}</span></li>`).join('')}
+        <li><span class="iv-logo">${logoSVG(30)}</span><span class="iv-name">Esta web</span><span class="iv-ver">${APP_VERSION}</span></li>
+      </ul>
+      <p class="opt-label">Privacidad</p>
+      <p class="small muted">Cada app guarda tus datos en tu dispositivo. La sincronización en la nube es opcional y solo se activa si creas una cuenta dentro de la app. Esta web no usa cookies ni estadísticas: solo recuerda en tu navegador el modo y el fondo que elijas.</p>
+      <p class="opt-label">Instalar OmT Apps</p>
+      <p class="small muted">${install}</p>
+      <div class="body-actions"><button class="done-btn" type="button">Cerrar</button></div>
+    </div>`;
+  document.body.append(back);
+  back.addEventListener('click', (e) => { if (e.target === back) closeSheet(); });
+  back.querySelector('.sheet-close').addEventListener('click', closeSheet);
+  back.querySelector('.done-btn').addEventListener('click', closeSheet);
+}
 
 function openMenu() {
   const menu = $('menu');

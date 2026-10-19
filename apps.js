@@ -3,7 +3,8 @@
 // Cada sección es un bloque deslizable; c1/c2 tiñen su fondo
 const SECTIONS = [
   { id: 'finanzas', title: 'Finanzas', text: 'Tu dinero y tus nóminas, al detalle.', c1: '#7c8cff', c2: '#34d399' },
-  { id: 'dia', title: 'Día a día', text: 'Documentos, tareas y teletrabajo, bajo control.', c1: '#fbbf24', c2: '#e879f9' },
+  { id: 'dia', title: 'Día a día', text: 'Tus documentos y tus tareas, bajo control.', c1: '#fbbf24', c2: '#e879f9' },
+  { id: 'trabajo', title: 'Trabajo', text: 'Organiza tu jornada y tus días en remoto.', c1: '#5aa9ff', c2: '#a5dcff' },
   { id: 'ocio', title: 'Ocio', text: 'Para cuando toca probar suerte.', c1: '#b57cff', c2: '#f472b6' },
 ];
 
@@ -13,7 +14,7 @@ const APPS = [
     section: 'finanzas',
     name: 'Under<b>CTRL</b>',
     plain: 'UnderCTRL',
-    version: '1.35.1',
+    version: '1.37.6',
     color: '#a78bfa',
     grad: 'linear-gradient(135deg, #4f8cff, #a78bfa 55%, #f472b6)',
     tagline: 'Tu posición financiera, en tiempo real.',
@@ -51,7 +52,7 @@ const APPS = [
     section: 'dia',
     name: 'Doc<b>CTRL</b>',
     plain: 'DocCTRL',
-    version: '0.2.0',
+    version: '0.2.2',
     color: '#fbbf24',
     grad: 'linear-gradient(135deg, #fde68a, #fbbf24 55%, #f97316)',
     tagline: 'Los documentos de la familia, siempre a mano.',
@@ -70,7 +71,7 @@ const APPS = [
     section: 'dia',
     name: 'Task<b>CTRL</b>',
     plain: 'TaskCTRL',
-    version: '0.3.0',
+    version: '0.4.2',
     color: '#e879f9',
     grad: 'linear-gradient(135deg, #f5d0fe, #e879f9 55%, #c026d3)',
     tagline: 'Tus tareas, por prioridad y sin que se te pase nada.',
@@ -86,10 +87,10 @@ const APPS = [
   },
   {
     id: 'upto40',
-    section: 'dia',
+    section: 'trabajo',
     name: 'Up to <b>40%</b>',
     plain: 'Up to 40%',
-    version: '1.1.0',
+    version: '1.1.2',
     color: '#5aa9ff',
     grad: 'linear-gradient(135deg, #a5dcff, #5aa9ff 55%, #3b7bff)',
     tagline: 'Tus días de teletrabajo, bajo control.',
@@ -108,7 +109,7 @@ const APPS = [
     section: 'ocio',
     name: 'Random<b>It</b>',
     plain: 'RandomIt',
-    version: '1.3.2',
+    version: '1.3.6',
     color: '#b57cff',
     grad: 'linear-gradient(135deg, #f0b8ff, #b57cff 55%, #7c4dff)',
     tagline: 'Combinaciones al azar para tus sorteos.',
