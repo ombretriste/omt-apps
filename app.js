@@ -1,7 +1,7 @@
 /* =====================================================================
    OmT Apps — portal con todas las apps de OmT Finance (datos en apps.js)
    ===================================================================== */
-const APP_VERSION = '0.3.2';
+const APP_VERSION = '0.3.3';
 const DISPLAY_KEY = 'omtapps:display';
 
 const $ = (id) => document.getElementById(id);
@@ -82,7 +82,8 @@ const T_ORBIT = 1300;   // empiezan a girar
 const T_ROW = 3100;     // el primero deja el círculo
 const T_FLY = 1300;     // lo que tarda cada uno en llegar a la fila
 const T_GAP = 90;       // retraso entre un icono y el siguiente
-let introTimers = [];
+let introEvents = [];  // [ms, fn] pendientes, medidos con el reloj de las animaciones
+let introFrame = 0;
 let introDone = false;
 
 function buildIntro() {
@@ -167,13 +168,24 @@ function playIntro() {
     { offset: 1, transform: 'none', opacity: 1 },
   ], { duration: total, fill: 'both' });
 
-  const at = (ms, fn) => introTimers.push(setTimeout(fn, ms));
-  at(200, () => $('intro-by').classList.add('on'));
-  at(total, () => toRow());
+  // Los pasos siguen el reloj de las animaciones (no setTimeout): si el navegador tarda en pintar
+  // el primer fotograma o las pausa, los pasos esperan con ellas y nada salta de golpe al final.
   const words = [...$('intro-title').children];
   const tWords = T_ROW + T_FLY - 300;
+  const tEnd = tWords + words.length * 130 + 500;
+  const at = (ms, fn) => introEvents.push([ms, fn]);
+  at(200, () => $('intro-by').classList.add('on'));
+  at(total, () => toRow());
   words.forEach((w, k) => at(tWords + k * 130, () => w.classList.add('on')));
-  at(tWords + words.length * 130 + 500, () => finishIntro());
+  at(tEnd, () => finishIntro());
+  introEvents.sort((a, b) => a[0] - b[0]);
+  const clock = $('intro').animate({ opacity: [1, 1] }, { duration: tEnd });
+  const tick = () => {
+    const t = clock.currentTime ?? 0;
+    while (introEvents.length && introEvents[0][0] <= t) introEvents.shift()[1]();
+    if (!introDone && introEvents.length) introFrame = requestAnimationFrame(tick);
+  };
+  introFrame = requestAnimationFrame(tick);
 }
 
 // Los iconos pasan de la animación a sus huecos de la fila (misma posición: no se nota) y flotan suavemente
@@ -189,8 +201,9 @@ function toRow() {
 function finishIntro() {
   if (introDone) return;
   introDone = true;
-  introTimers.forEach(clearTimeout);
-  introTimers = [];
+  cancelAnimationFrame(introFrame);
+  introEvents = [];
+  $('intro').getAnimations().forEach((a) => a.cancel());
   $('intro-logo').getAnimations().forEach((a) => a.cancel());
   $('intro-logo').style.opacity = '0';
   toRow();

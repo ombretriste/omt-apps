@@ -159,10 +159,10 @@ a { color: inherit; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 26px;
   max-width: 760px;
-  padding-bottom: 6px;
+  padding-bottom: clamp(12px, 6vh, 80px); /* centrado un poco por encima: aire hasta Entrar */
   text-align: center;
 }
 /* Fila donde aterrizan los iconos (huecos del tamaño de cada icono) */
@@ -221,7 +221,7 @@ a { color: inherit; }
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  margin: 22px 0 clamp(28px, 7vh, 72px);
+  margin: clamp(20px, 4vh, 44px) 0 clamp(28px, 7vh, 72px);
   opacity: 0;
   transform: translateY(16px) scale(.9);
   pointer-events: none;
