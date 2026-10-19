@@ -1,7 +1,7 @@
 /* =====================================================================
    OmT Apps — portal con todas las apps de OmT Finance (datos en apps.js)
    ===================================================================== */
-const APP_VERSION = '0.3.0';
+const APP_VERSION = '0.3.1';
 const DISPLAY_KEY = 'omtapps:display';
 
 const $ = (id) => document.getElementById(id);
@@ -153,8 +153,22 @@ function playIntro() {
     { opacity: 0, transform: 'translate(-50%, -50%) scale(.7)' },
   ], { duration: T_ROW + 600, fill: 'forwards' });
 
+  // Título: aparece pequeño arriba y, mientras los iconos aterrizan, baja creciendo hasta encima de ellos
+  const mark = $('intro-mark');
+  const topY = $('skip-btn').getBoundingClientRect().top;
+  const dy = Math.min(0, topY - mark.getBoundingClientRect().top);
+  const small = `translateY(${dy}px) scale(.45)`;
+  mark.classList.add('on');
+  mark.animate([
+    { offset: 0, transform: small, opacity: 0 },
+    { offset: 200 / total, transform: small, opacity: 0, easing: 'ease' },
+    { offset: 1100 / total, transform: small, opacity: 1 },
+    { offset: (T_ROW - 250) / total, transform: small, opacity: 1, easing: glide },
+    { offset: 1, transform: 'none', opacity: 1 },
+  ], { duration: total, fill: 'both' });
+
   const at = (ms, fn) => introTimers.push(setTimeout(fn, ms));
-  at(200, () => { $('intro-head').classList.add('on'); $('intro-by').classList.add('on'); });
+  at(200, () => $('intro-by').classList.add('on'));
   at(total, () => toRow());
   const words = [...$('intro-title').children];
   const tWords = T_ROW + T_FLY - 300;
@@ -181,7 +195,8 @@ function finishIntro() {
   $('intro-logo').style.opacity = '0';
   toRow();
   $('intro').classList.add('done');
-  $('intro-head').classList.add('on');
+  $('intro-mark').classList.add('on');
+  $('intro-mark').getAnimations().forEach((a) => a.cancel());
   $('intro-by').classList.add('on');
   $('intro-title').querySelectorAll('.w').forEach((w) => w.classList.add('on'));
   $('intro-enter').classList.add('on');

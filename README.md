@@ -2,13 +2,13 @@
 
 *by OmT Finance*
 
-Versión **0.3.0** (no se muestra en la web: está en menú ⋯ → Información). Las correcciones y ajustes suben el último número (0.1.1); las novedades, el del medio (0.2.0).
+Versión **0.3.1** (no se muestra en la web: está en menú ⋯ → Información). Las correcciones y ajustes suben el último número (0.1.1); las novedades, el del medio (0.2.0).
 
 Web pública (PWA estática) que presenta todas las apps de OmT Finance y da acceso a cada una: UnderCTRL, PayCTRL, DocCTRL, TaskCTRL, Up to 40% y RandomIt.
 
 ## Funcionamiento
 
-- **Intro animada**: arriba el título «OmT Apps» y al pie «by OmT Finance». Los iconos de todas las apps llegan volando desde fuera de la pantalla, orbitan alrededor del logo y aterrizan uno a uno, con suavidad, en su fila; aparece la frase «Apps sencillas para tu día a día» palabra a palabra y, más abajo, el botón **Entrar**. Todo tiene su sitio reservado desde el principio, así que nada salta al aparecer. **Saltar** la lleva directamente al final (y con «reducir movimiento» del sistema no hay animación). Un enlace directo a una app (`/#taskctrl`) se salta la intro y abre su ficha.
+- **Intro animada**: el título «OmT Apps» aparece pequeño arriba y, mientras los iconos aterrizan, baja creciendo hasta quedar grande encima de ellos; al pie, «by OmT Finance». El título, los iconos y la frase van en la parte baja, cerca de Entrar. Los iconos de todas las apps llegan volando desde fuera de la pantalla, orbitan alrededor del logo y aterrizan uno a uno, con suavidad, en su fila; aparece la frase «Apps sencillas para tu día a día» palabra a palabra y, más abajo, el botón **Entrar**. Todo tiene su sitio reservado desde el principio, así que nada salta al aparecer. **Saltar** la lleva directamente al final (y con «reducir movimiento» del sistema no hay animación). Un enlace directo a una app (`/#taskctrl`) se salta la intro y abre su ficha.
 - **Bloques por sección** (Finanzas, Día a día, Trabajo, Ocio), cada uno con su color, que se deslizan: con el dedo en móvil y tablet; con el ratón arrastrando, con la rueda (un bloque por gesto), con las flechas laterales o las del teclado; y con las pestañas de arriba, cuyo indicador sigue al bloque. Los bloques laterales giran y se alejan en efecto carrusel.
 - **Iconos grandes** de cada app que flotan, se mueven un poco con el ratón (paralaje, igual que las luces de fondo del bloque) y se iluminan al pasar por encima.
 - **Ficha** de cada app al pulsar su icono: descripción, qué puedes hacer, cómo instalarla (pasos para iPhone, Android u ordenador según el dispositivo), **Compartir** y **Abrir app** (en otra pestaña; sin dirección sale «Próximamente»). El botón Atrás del móvil la cierra.

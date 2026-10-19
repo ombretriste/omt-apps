@@ -108,7 +108,7 @@ a { color: inherit; }
   inset: 0;
   z-index: 100;
   display: grid;
-  grid-template-rows: auto 1fr auto auto;
+  grid-template-rows: 1fr auto auto;
   justify-items: center;
   padding: calc(22px + env(safe-area-inset-top)) 16px calc(18px + env(safe-area-inset-bottom));
   overflow: hidden;
@@ -130,16 +130,21 @@ a { color: inherit; }
 }
 .intro.done .skip-btn { opacity: 0; pointer-events: none; }
 
-.intro-head, .intro-by { opacity: 0; transition: opacity 1s ease; }
-.intro-head.on, .intro-by.on { opacity: 1; }
-.intro-head { padding-top: 6px; }
+.intro-by { opacity: 0; transition: opacity 1s ease; }
+.intro-by.on { opacity: 1; }
+/* Título: su sitio final está encima de los iconos; la animación lo trae desde arriba, pequeño */
 .intro-wordmark {
+  margin: 0 0 -4px;
   font-family: -apple-system, "SF Pro Display", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
-  font-size: 30px;
+  font-size: clamp(42px, 11vw, 66px);
   font-weight: 200;
+  line-height: 1;
   letter-spacing: .01em;
   white-space: nowrap;
+  transform-origin: 50% 0;
+  opacity: 0;
 }
+.intro-wordmark.on { opacity: 1; }
 .intro-by {
   margin: 0;
   font-size: 12px;
@@ -153,9 +158,10 @@ a { color: inherit; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 26px;
   max-width: 760px;
+  padding-bottom: 6px;
   text-align: center;
 }
 /* Fila donde aterrizan los iconos (huecos del tamaño de cada icono) */
@@ -213,7 +219,7 @@ a { color: inherit; }
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  margin: 24px 0 clamp(28px, 7vh, 72px);
+  margin: 22px 0 clamp(28px, 7vh, 72px);
   opacity: 0;
   transform: translateY(16px) scale(.9);
   pointer-events: none;
