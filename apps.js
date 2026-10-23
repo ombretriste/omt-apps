@@ -121,7 +121,7 @@ const APPS = [
       'Lista de la maleta según el destino',
     ],
     tags: ['Nube', 'DocCTRL'],
-    url: '',
+    url: 'https://trip-app-vfeg.vercel.app/',
   },
   {
     id: 'randomit',
