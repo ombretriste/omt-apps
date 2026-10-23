@@ -211,8 +211,9 @@ a { color: inherit; }
 .intro-title .w {
   display: inline-block;
   opacity: 0;
-  filter: blur(10px);
-  transform: translateY(18px);
+  filter: blur(6px);
+  transform: translateY(16px);
+  will-change: transform, opacity, filter; /* lo anima la tarjeta gráfica: sin tirones con letra grande */
 }
 .intro-title .w.on { animation: word-in .8s cubic-bezier(.2, .8, .2, 1) forwards; }
 

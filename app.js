@@ -1,7 +1,7 @@
 /* =====================================================================
    OmT Apps — portal con todas las apps de OmT Finance (datos en apps.js)
    ===================================================================== */
-const APP_VERSION = '0.3.9';
+const APP_VERSION = '0.3.10';
 const DISPLAY_KEY = 'omtapps:display';
 
 const $ = (id) => document.getElementById(id);
@@ -175,8 +175,12 @@ function playIntro() {
   const tEnd = tWords + words.length * 130 + 500;
   const at = (ms, fn) => introEvents.push([ms, fn]);
   at(200, () => $('intro-by').classList.add('on'));
-  at(total, () => toRow());
-  words.forEach((w, k) => at(tWords + k * 130, () => w.classList.add('on')));
+  // Las palabras se encadenan solas con animation-delay: aunque el navegador se atasque un
+  // instante, no salen amontonadas. Los iconos pasan a su fila al final, cuando ya no se mueve nada.
+  at(tWords, () => words.forEach((w, k) => {
+    w.style.animationDelay = `${k * 130}ms`;
+    w.classList.add('on');
+  }));
   at(tEnd, () => finishIntro());
   introEvents.sort((a, b) => a[0] - b[0]);
   const clock = $('intro').animate({ opacity: [1, 1] }, { duration: tEnd });
@@ -198,7 +202,7 @@ function toRow() {
   orbit.innerHTML = '';
 }
 
-function finishIntro() {
+function finishIntro(skip = false) {
   if (introDone) return;
   introDone = true;
   cancelAnimationFrame(introFrame);
@@ -211,10 +215,13 @@ function finishIntro() {
   $('intro-mark').classList.add('on');
   $('intro-mark').getAnimations().forEach((a) => a.cancel());
   $('intro-by').classList.add('on');
-  $('intro-title').querySelectorAll('.w').forEach((w) => w.classList.add('on'));
+  $('intro-title').querySelectorAll('.w').forEach((w) => {
+    if (skip) w.style.animationDelay = '0ms'; // al saltar, todas a la vez
+    w.classList.add('on');
+  });
   $('intro-enter').classList.add('on');
 }
-$('skip-btn').addEventListener('click', finishIntro);
+$('skip-btn').addEventListener('click', () => finishIntro(true));
 
 function enter(instant = false) {
   const body = document.body;
