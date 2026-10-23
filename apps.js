@@ -5,7 +5,7 @@ const SECTIONS = [
   { id: 'finanzas', title: 'Finanzas', text: 'Tu dinero y tus nóminas, al detalle.', c1: '#7c8cff', c2: '#34d399' },
   { id: 'dia', title: 'Día a día', text: 'Tus documentos y tus tareas, bajo control.', c1: '#fbbf24', c2: '#e879f9' },
   { id: 'trabajo', title: 'Trabajo', text: 'Organiza tu jornada y tus días en remoto.', c1: '#5aa9ff', c2: '#a5dcff' },
-  { id: 'ocio', title: 'Ocio', text: 'Para cuando toca probar suerte.', c1: '#b57cff', c2: '#f472b6' },
+  { id: 'ocio', title: 'Ocio', text: 'Viajes y sorteos: para disfrutar del tiempo libre.', c1: '#fb7185', c2: '#b57cff' },
 ];
 
 const APPS = [
@@ -103,6 +103,25 @@ const APPS = [
     ],
     tags: ['Sin conexión', 'Nube'],
     url: 'https://teletrabajo-one.vercel.app/',
+  },
+  {
+    id: 'tripctrl',
+    section: 'ocio',
+    name: 'Trip<b>CTRL</b>',
+    plain: 'TripCTRL',
+    version: '0.1.0',
+    color: '#fb7185',
+    grad: 'linear-gradient(135deg, #fecdd3, #fb7185 55%, #e11d48)',
+    tagline: 'Tus viajes, organizados de principio a fin.',
+    description: 'Prepara cada viaje con su plan día a día (vuelos, trenes, coche, alojamiento y actividades), comprueba que los documentos de cada viajero están en regla, lleva la cuenta de los gastos y no olvides nada en la maleta.',
+    features: [
+      'Plan día a día con reservas, localizadores y mapa',
+      'Documentos de cada viajero en regla, con DocCTRL',
+      'Gastos por persona y presupuesto del viaje',
+      'Lista de la maleta según el destino',
+    ],
+    tags: ['Nube', 'DocCTRL'],
+    url: '',
   },
   {
     id: 'randomit',

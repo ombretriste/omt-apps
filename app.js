@@ -1,7 +1,7 @@
 /* =====================================================================
    OmT Apps — portal con todas las apps de OmT Finance (datos en apps.js)
    ===================================================================== */
-const APP_VERSION = '0.3.10';
+const APP_VERSION = '0.4.0';
 const DISPLAY_KEY = 'omtapps:display';
 
 const $ = (id) => document.getElementById(id);
