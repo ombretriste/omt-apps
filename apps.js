@@ -71,7 +71,7 @@ const APPS = [
     section: 'dia',
     name: 'Task<b>CTRL</b>',
     plain: 'TaskCTRL',
-    version: '0.6.1',
+    version: '0.7.0',
     color: '#e879f9',
     grad: 'linear-gradient(135deg, #f5d0fe, #e879f9 55%, #c026d3)',
     tagline: 'Tus tareas, por prioridad y sin que se te pase nada.',
