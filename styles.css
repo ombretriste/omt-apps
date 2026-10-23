@@ -161,6 +161,7 @@ a { color: inherit; }
   align-items: center;
   justify-content: center;
   gap: 26px;
+  width: 100%; /* ancho fijo: no depende de su contenido, así nada se recoloca durante la animación */
   max-width: 760px;
   padding-bottom: clamp(12px, 6vh, 80px); /* centrado un poco por encima: aire hasta Entrar */
   text-align: center;
@@ -207,6 +208,11 @@ a { color: inherit; }
   line-height: 1.12;
   letter-spacing: -.01em;
   text-wrap: balance;
+}
+/* Escritorio y tableta: la frase va siempre en una línea, desde el principio (sin reparto automático
+   de líneas, que algunos navegadores recalculan a mitad de la animación y hacía saltar de 2 líneas a 1) */
+@media (min-width: 720px) {
+  .intro-title { white-space: nowrap; text-wrap: nowrap; }
 }
 .intro-title .w {
   display: inline-block;
