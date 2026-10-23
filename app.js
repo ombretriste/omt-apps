@@ -1,7 +1,7 @@
 /* =====================================================================
    OmT Apps — portal con todas las apps de OmT Finance (datos en apps.js)
    ===================================================================== */
-const APP_VERSION = '0.4.3';
+const APP_VERSION = '0.4.4';
 const DISPLAY_KEY = 'omtapps:display';
 
 const $ = (id) => document.getElementById(id);
@@ -86,12 +86,21 @@ let introEvents = [];  // [ms, fn] pendientes, medidos con el reloj de las anima
 let introFrame = 0;
 let introDone = false;
 
+// Tamaño de los iconos de la fila según el ancho de la ventana
+function introIconSize() {
+  const n = APPS.length;
+  const ii = Math.round(Math.max(36, Math.min(64, (innerWidth - 32 - (n - 1) * 12) / n)));
+  $('intro')?.style.setProperty('--ii', `${ii}px`);
+  return ii;
+}
+// Ya en fila, si cambia el tamaño de la ventana los iconos se ajustan (durante el vuelo no: irían a otro sitio)
+window.addEventListener('resize', () => { if (introDone) introIconSize(); });
+
 function buildIntro() {
   const n = APPS.length;
   const vw = innerWidth;
-  const ii = Math.round(Math.max(36, Math.min(64, (vw - 32 - (n - 1) * 12) / n)));
+  introIconSize();
   const ring = Math.round(Math.min(150, vw * 0.34, innerHeight * 0.2));
-  $('intro').style.setProperty('--ii', `${ii}px`);
   $('icon-row').innerHTML = APPS.map((a, i) => `<span class="slot" style="--c:${a.color};--i:${i}"></span>`).join('');
   $('orbit').innerHTML = APPS.map((a, i) =>
     `<span class="ip" style="--c:${a.color};--i:${i}"><span class="ir"><img src="icons/apps/${a.id}.svg" alt="" /></span></span>`).join('');
