@@ -1,5 +1,5 @@
 // Cambia la versión al modificar archivos para que los móviles descarguen la nueva versión
-const CACHE = 'omtapps-v31';
+const CACHE = 'omtapps-v32';
 const ASSETS = [
   './',
   'index.html',

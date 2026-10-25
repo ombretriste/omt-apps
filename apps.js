@@ -90,7 +90,7 @@ const APPS = [
     section: 'trabajo',
     name: 'Up to <b>40%</b>',
     plain: 'Up to 40%',
-    version: '1.3.8',
+    version: '1.3.9',
     color: '#5aa9ff',
     grad: 'linear-gradient(135deg, #a5dcff, #5aa9ff 55%, #3b7bff)',
     tagline: 'Tus días de teletrabajo, bajo control.',
