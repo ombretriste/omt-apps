@@ -109,7 +109,7 @@ const APPS = [
     section: 'ocio',
     name: 'Trip<b>CTRL</b>',
     plain: 'TripCTRL',
-    version: '0.1.2',
+    version: '0.1.3',
     color: '#fb7185',
     grad: 'linear-gradient(135deg, #fecdd3, #fb7185 55%, #e11d48)',
     tagline: 'Tus viajes, organizados de principio a fin.',
