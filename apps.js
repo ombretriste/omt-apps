@@ -52,7 +52,7 @@ const APPS = [
     section: 'dia',
     name: 'Doc<b>CTRL</b>',
     plain: 'DocCTRL',
-    version: '0.2.4',
+    version: '0.2.5',
     color: '#fbbf24',
     grad: 'linear-gradient(135deg, #fde68a, #fbbf24 55%, #f97316)',
     tagline: 'Los documentos de la familia, siempre a mano.',
