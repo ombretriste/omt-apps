@@ -3,7 +3,7 @@
 // Cada sección es un bloque deslizable; c1/c2 tiñen su fondo
 const SECTIONS = [
   { id: 'finanzas', title: 'Finanzas', text: 'Tu dinero y tus nóminas, al detalle.', c1: '#7c8cff', c2: '#34d399' },
-  { id: 'dia', title: 'Día a día', text: 'Tus documentos y tus tareas, bajo control.', c1: '#fbbf24', c2: '#e879f9' },
+  { id: 'dia', title: 'Día a día', text: 'Tus documentos, tus tareas y tus chats, bajo control.', c1: '#fbbf24', c2: '#a3e635' },
   { id: 'trabajo', title: 'Trabajo', text: 'Organiza tu jornada y tus días en remoto.', c1: '#5aa9ff', c2: '#a5dcff' },
   { id: 'ocio', title: 'Ocio', text: 'Viajes y sorteos: para disfrutar del tiempo libre.', c1: '#fb7185', c2: '#b57cff' },
 ];
@@ -84,6 +84,25 @@ const APPS = [
     ],
     tags: ['Avisos', 'Nube'],
     url: 'https://task-app-six-vert.vercel.app/',
+  },
+  {
+    id: 'chatctrl',
+    section: 'dia',
+    name: 'Chat<b>CTRL</b>',
+    plain: 'ChatCTRL',
+    version: '0.2.2',
+    color: '#a3e635',
+    grad: 'linear-gradient(135deg, #ecfccb, #a3e635 55%, #65a30d)',
+    tagline: 'Chats privados con tus amigos, sin cuentas.',
+    description: 'Crea un chat de grupo y comparte el enlace de invitación: sin cuentas ni números de teléfono. Los mensajes se cifran en tu dispositivo antes de enviarse, y te avisa de los nuevos aunque tengas la app cerrada.',
+    features: [
+      'Chats de grupo con un enlace de invitación',
+      'Cifrado de extremo a extremo, sin cuentas ni teléfono',
+      'Avisos de mensajes nuevos con la app cerrada',
+      'Funciona sin conexión: los mensajes se envían al volver',
+    ],
+    tags: ['Avisos', 'Cifrado'],
+    url: 'https://chat-app-weld-xi-1rxgo2en0m.vercel.app/',
   },
   {
     id: 'upto40',

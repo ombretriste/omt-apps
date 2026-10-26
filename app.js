@@ -1,7 +1,7 @@
 /* =====================================================================
    OmT Apps — portal con todas las apps de OmT Finance (datos en apps.js)
    ===================================================================== */
-const APP_VERSION = '0.4.20';
+const APP_VERSION = '0.5.0';
 const DISPLAY_KEY = 'omtapps:display';
 
 const $ = (id) => document.getElementById(id);
@@ -87,10 +87,13 @@ let introFrame = 0;
 let introDone = false;
 
 // Tamaño de los iconos de la fila según el ancho de la ventana
+// (con muchas apps, en pantallas estrechas se juntan un poco más para que quepan todas)
 function introIconSize() {
   const n = APPS.length;
-  const ii = Math.round(Math.max(36, Math.min(64, (innerWidth - 32 - (n - 1) * 12) / n)));
+  const gap = innerWidth < 480 ? 8 : 12;
+  const ii = Math.floor(Math.max(30, Math.min(64, (innerWidth - 32 - (n - 1) * gap) / n)));
   $('intro')?.style.setProperty('--ii', `${ii}px`);
+  $('intro')?.style.setProperty('--row-gap', `${gap}px`);
   return ii;
 }
 // Ya en fila, si cambia el tamaño de la ventana los iconos se ajustan (durante el vuelo no: irían a otro sitio)

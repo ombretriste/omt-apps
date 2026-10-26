@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="g" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#65a30d"/><stop offset=".55" stop-color="#a3e635"/><stop offset="1" stop-color="#ecfccb"/>
+    </linearGradient>
+    <radialGradient id="bg" cx="30%" cy="20%" r="90%">
+      <stop offset="0" stop-color="#1d2a0e"/><stop offset="1" stop-color="#0a0e06"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <!-- Emblema de líneas finas dentro de la zona segura (≈70 %) -->
+  <g transform="translate(256 256) scale(2.9) translate(-60 -60)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="60" cy="60" r="52" stroke="url(#g)" stroke-width="1.6"/>
+    <circle cx="60" cy="60" r="42" stroke="url(#g)" stroke-width="1" stroke-dasharray="2 5" opacity=".6"/>
+    <g transform="translate(-2 -1)">
+      <path d="M40 36h30a10 10 0 0 1 10 10v14a10 10 0 0 1-10 10H50l-10 8v-8a10 10 0 0 1-10-10V46a10 10 0 0 1 10-10z" stroke="url(#g)" stroke-width="2.2"/>
+      <path d="M84 52h2a8 8 0 0 1 8 8v10a8 8 0 0 1-8 8v7l-9-7H66a8 8 0 0 1-8-8" stroke="url(#g)" stroke-width="1.8"/>
+      <circle cx="45" cy="53" r="2.8" fill="#65a30d" stroke="none"/>
+      <circle cx="55" cy="53" r="2.8" fill="#a3e635" stroke="none"/>
+      <circle cx="65" cy="53" r="2.8" fill="#d9f99d" stroke="none"/>
+    </g>
+  </g>
+</svg>
