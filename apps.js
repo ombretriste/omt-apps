@@ -33,7 +33,7 @@ const APPS = [
     section: 'finanzas',
     name: 'Pay<b>CTRL</b>',
     plain: 'PayCTRL',
-    version: '1.4.8',
+    version: '1.5.0',
     color: '#34d399',
     grad: 'linear-gradient(135deg, #22d3ee, #34d399 55%, #bef264)',
     tagline: 'Todas tus nóminas, leídas solas.',
