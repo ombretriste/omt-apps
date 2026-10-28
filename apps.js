@@ -4,7 +4,7 @@
 const SECTIONS = [
   { id: 'finanzas', title: 'Finanzas', text: 'Tu dinero y tus nóminas, al detalle.', c1: '#7c8cff', c2: '#34d399' },
   { id: 'dia', title: 'Día a día', text: 'Tus documentos, tus tareas y tus chats, bajo control.', c1: '#fbbf24', c2: '#a3e635' },
-  { id: 'trabajo', title: 'Trabajo', text: 'Organiza tu jornada y tus días en remoto.', c1: '#5aa9ff', c2: '#a5dcff' },
+  { id: 'trabajo', title: 'Trabajo', text: 'Organiza tus días en remoto y calcula lo que te cuesta la huelga.', c1: '#5aa9ff', c2: '#fb923c' },
   { id: 'ocio', title: 'Ocio', text: 'Viajes y sorteos: para disfrutar del tiempo libre.', c1: '#fb7185', c2: '#b57cff' },
 ];
 
@@ -126,6 +126,25 @@ const APPS = [
     ],
     tags: ['Sin conexión', 'Nube'],
     url: 'https://teletrabajo-one.vercel.app/',
+  },
+  {
+    id: 'strikectrl',
+    section: 'trabajo',
+    name: 'Strike<b>CTRL</b>',
+    plain: 'StrikeCTRL',
+    version: '0.1.0',
+    color: '#f97316',
+    grad: 'linear-gradient(135deg, #fcd34d, #f97316 55%, #e11d48)',
+    tagline: 'Lo que te cuesta cada día de huelga.',
+    description: 'Sube tus nóminas en PDF y calcula el impacto de los días de huelga en cada nómina y en las pagas extra de julio y diciembre. Responde unas preguntas y suma lo que se pierde en pagas adicionales, en los atrasos de la subida salarial y en el bonus.',
+    features: [
+      'Lectura automática de las horas de huelga en las nóminas',
+      'Impacto bruto y neto: cotización devuelta e IRPF',
+      'Pagas extra de julio y diciembre, descontado y pendiente',
+      'Subida salarial, bonus con performance y pagas adicionales',
+    ],
+    tags: ['PDF', 'Sin conexión'],
+    url: '',
   },
   {
     id: 'tripctrl',
