@@ -1,7 +1,7 @@
 /* =====================================================================
    OmT Apps — portal con todas las apps de OmT Finance (datos en apps.js)
    ===================================================================== */
-const APP_VERSION = '0.6.1';
+const APP_VERSION = '0.6.2';
 const DISPLAY_KEY = 'omtapps:display';
 
 const $ = (id) => document.getElementById(id);
@@ -90,8 +90,8 @@ let introDone = false;
 // (con muchas apps, en pantallas estrechas se juntan un poco más para que quepan todas)
 function introIconSize() {
   const n = APPS.length;
-  const gap = innerWidth < 480 ? 8 : 12;
-  const ii = Math.floor(Math.max(30, Math.min(64, (innerWidth - 32 - (n - 1) * gap) / n)));
+  const gap = innerWidth < 360 ? 6 : innerWidth < 480 ? 8 : 12;
+  const ii = Math.floor(Math.max(24, Math.min(64, (innerWidth - 32 - (n - 1) * gap) / n)));
   $('intro')?.style.setProperty('--ii', `${ii}px`);
   $('intro')?.style.setProperty('--row-gap', `${gap}px`);
   return ii;
