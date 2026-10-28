@@ -144,7 +144,7 @@ const APPS = [
       'Subida salarial, bonus con performance y pagas adicionales',
     ],
     tags: ['PDF', 'Sin conexión'],
-    url: '',
+    url: 'https://strike-app-ruby.vercel.app/',
   },
   {
     id: 'tripctrl',
