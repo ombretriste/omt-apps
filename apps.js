@@ -132,7 +132,7 @@ const APPS = [
     section: 'trabajo',
     name: 'Strike<b>CTRL</b>',
     plain: 'StrikeCTRL',
-    version: '0.1.0',
+    version: '0.1.1',
     color: '#f97316',
     grad: 'linear-gradient(135deg, #fcd34d, #f97316 55%, #e11d48)',
     tagline: 'Lo que te cuesta cada día de huelga.',
