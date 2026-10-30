@@ -3,7 +3,7 @@
 // Cada sección es un bloque deslizable; c1/c2 tiñen su fondo
 const SECTIONS = [
   { id: 'finanzas', title: 'Finanzas', text: 'Tu dinero y tus nóminas, al detalle.', c1: '#7c8cff', c2: '#34d399' },
-  { id: 'dia', title: 'Día a día', text: 'Tus documentos, tus tareas, tus chats y tus videollamadas, bajo control.', c1: '#fbbf24', c2: '#a3e635' },
+  { id: 'dia', title: 'Día a día', text: 'Tus documentos, tus textos, tus tareas, tus chats y tus videollamadas, bajo control.', c1: '#fbbf24', c2: '#a3e635' },
   { id: 'trabajo', title: 'Trabajo', text: 'Organiza tus días en remoto y calcula lo que te cuesta la huelga.', c1: '#5aa9ff', c2: '#fb923c' },
   { id: 'ocio', title: 'Ocio', text: 'Viajes y sorteos: para disfrutar del tiempo libre.', c1: '#fb7185', c2: '#b57cff' },
 ];
@@ -126,6 +126,26 @@ const APPS = [
     ],
     tags: ['Vídeo', 'Cifrado'],
     url: 'https://meet-app-wine.vercel.app/',
+  },
+  {
+    id: 'textctrl',
+    section: 'dia',
+    name: 'Text<b>CTRL</b>',
+    plain: 'TextCTRL',
+    version: '0.1.0',
+    color: '#818cf8',
+    grad: 'linear-gradient(135deg, #c7d2fe, #818cf8 55%, #4f46e5)',
+    tagline: 'Escribe y guarda en PDF o Word, sin más.',
+    description: 'Un editor de texto sencillo con lo básico: estilos, listas, tablas, imágenes y enlaces. Abre archivos de Word y guarda en PDF, Word, HTML, Markdown o texto. Tus documentos se quedan en tu dispositivo.',
+    features: [
+      'Formato de texto, listas, tablas e imágenes',
+      'Guarda en PDF, Word, HTML, Markdown y texto',
+      'Abre archivos de Word, texto, Markdown y HTML',
+      'Autoguardado y buscar y reemplazar',
+      'Sin cuentas: todo se queda en tu dispositivo',
+    ],
+    tags: ['PDF', 'Word'],
+    url: 'https://text-app-olive.vercel.app/',
   },
   {
     id: 'upto40',
