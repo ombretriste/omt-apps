@@ -2,7 +2,7 @@
 
 *by OmT Finance*
 
-Versión **0.7.0** (no se muestra en la web: está en menú ⋯ → Información). Las correcciones y ajustes suben el último número (0.1.1); las novedades, el del medio (0.2.0).
+Versión **0.7.1** (no se muestra en la web: está en menú ⋯ → Información). Las correcciones y ajustes suben el último número (0.1.1); las novedades, el del medio (0.2.0).
 
 Web pública (PWA estática) que presenta todas las apps de OmT Finance y da acceso a cada una: UnderCTRL, PayCTRL, DocCTRL, TaskCTRL, ChatCTRL, MeetCTRL, Up to 40%, StrikeCTRL, TripCTRL y RandomIt.
 
