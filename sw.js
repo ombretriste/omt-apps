@@ -1,5 +1,5 @@
 // Cambia la versión al modificar archivos para que los móviles descarguen la nueva versión
-const CACHE = 'omtapps-v68';
+const CACHE = 'omtapps-v69';
 const ASSETS = [
   './',
   'index.html',
@@ -20,6 +20,7 @@ const ASSETS = [
   'icons/apps/strikectrl.svg',
   'icons/apps/tripctrl.svg',
   'icons/apps/chatctrl.svg',
+  'icons/apps/meetctrl.svg',
   'icons/apps/randomit.svg',
 ];
 

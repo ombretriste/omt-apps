@@ -3,7 +3,7 @@
 // Cada sección es un bloque deslizable; c1/c2 tiñen su fondo
 const SECTIONS = [
   { id: 'finanzas', title: 'Finanzas', text: 'Tu dinero y tus nóminas, al detalle.', c1: '#7c8cff', c2: '#34d399' },
-  { id: 'dia', title: 'Día a día', text: 'Tus documentos, tus tareas y tus chats, bajo control.', c1: '#fbbf24', c2: '#a3e635' },
+  { id: 'dia', title: 'Día a día', text: 'Tus documentos, tus tareas, tus chats y tus videollamadas, bajo control.', c1: '#fbbf24', c2: '#a3e635' },
   { id: 'trabajo', title: 'Trabajo', text: 'Organiza tus días en remoto y calcula lo que te cuesta la huelga.', c1: '#5aa9ff', c2: '#fb923c' },
   { id: 'ocio', title: 'Ocio', text: 'Viajes y sorteos: para disfrutar del tiempo libre.', c1: '#fb7185', c2: '#b57cff' },
 ];
@@ -107,6 +107,25 @@ const APPS = [
     ],
     tags: ['Avisos', 'Cifrado'],
     url: 'https://chat-app-weld-xi-1rxgo2en0m.vercel.app/',
+  },
+  {
+    id: 'meetctrl',
+    section: 'dia',
+    name: 'Meet<b>CTRL</b>',
+    plain: 'MeetCTRL',
+    version: '0.1.0',
+    color: '#22d3ee',
+    grad: 'linear-gradient(135deg, #a5f3fc, #22d3ee 55%, #0891b2)',
+    tagline: 'Videollamadas y pantalla compartida, sin cuentas.',
+    description: 'Crea una sala y envía el enlace: hasta 6 personas, sin cuentas ni instalaciones. El vídeo va directo entre vosotros y cifrado, y desde el ordenador puedes compartir tu pantalla.',
+    features: [
+      'Salas privadas con un enlace',
+      'Videollamadas de hasta 6 personas',
+      'Pantalla compartida desde el ordenador',
+      'Vídeo directo y cifrado: nada se graba ni se guarda',
+    ],
+    tags: ['Vídeo', 'Cifrado'],
+    url: 'https://meet-app-wine.vercel.app/',
   },
   {
     id: 'upto40',
