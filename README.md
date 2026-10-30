@@ -2,7 +2,7 @@
 
 *by OmT Finance*
 
-Versión **0.6.10** (no se muestra en la web: está en menú ⋯ → Información). Las correcciones y ajustes suben el último número (0.1.1); las novedades, el del medio (0.2.0).
+Versión **0.6.11** (no se muestra en la web: está en menú ⋯ → Información). Las correcciones y ajustes suben el último número (0.1.1); las novedades, el del medio (0.2.0).
 
 Web pública (PWA estática) que presenta todas las apps de OmT Finance y da acceso a cada una: UnderCTRL, PayCTRL, DocCTRL, TaskCTRL, ChatCTRL, Up to 40%, StrikeCTRL, TripCTRL y RandomIt.
 
@@ -26,3 +26,8 @@ Todo está en `apps.js`:
 ## Publicar
 
 Repositorio en GitHub y proyecto en Vercel sin configuración (sitio estático, sin funciones).
+
+## Analítica
+
+Vercel Web Analytics (se activa en la pestaña Analytics del proyecto de Vercel, sin cookies). La app es una sola página, así que cada función se cuenta como una página virtual con `track()` en `app.js`. Solo se envía el nombre de la función, nunca datos de la app, y `beforeSend` (en `index.html`) quita de la dirección lo que va tras `?` o `#`.
+

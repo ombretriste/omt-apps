@@ -1,7 +1,11 @@
 /* =====================================================================
    OmT Apps — portal con todas las apps de OmT Finance (datos en apps.js)
    ===================================================================== */
-const APP_VERSION = '0.6.10';
+const APP_VERSION = '0.6.11';
+// Uso de la app en Vercel Analytics: es una sola página, así que cada función se cuenta como una
+// página virtual. Solo se envía el nombre de la función, nunca datos de la app.
+const track = (path) => { try { window.va?.('pageview', { path }); } catch (_) { /* sin analítica */ } };
+const trackLabel = (label) => track(`/${label.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`);
 const DISPLAY_KEY = 'omtapps:display';
 
 const $ = (id) => document.getElementById(id);
@@ -460,6 +464,7 @@ function closeSheet() {
 function openDetail(id, { push = true } = {}) {
   const a = APPS.find((x) => x.id === id);
   if (!a) return;
+  track(`/app/${id}`);
   closeSheet();
   const back = document.createElement('div');
   back.className = 'sheet-backdrop';
@@ -566,7 +571,7 @@ function openInfoSheet() {
         <li><span class="iv-logo">${logoSVG(30)}</span><span class="iv-name">Esta web</span><span class="iv-ver">${APP_VERSION}</span></li>
       </ul>
       <p class="opt-label">Privacidad</p>
-      <p class="small muted">Cada app guarda tus datos en tu dispositivo. La sincronización en la nube es opcional y solo se activa si creas una cuenta dentro de la app. Esta web no usa cookies ni estadísticas: solo recuerda en tu navegador el modo y el fondo que elijas.</p>
+      <p class="small muted">Cada app guarda tus datos en tu dispositivo. La sincronización en la nube es opcional y solo se activa si creas una cuenta dentro de la app. Esta web y las apps no usan cookies. Cuentan de forma anónima las visitas y qué funciones se abren (Vercel Analytics), sin enviar nunca tus datos. En tu navegador solo se recuerda el modo y el fondo que elijas.</p>
       <p class="opt-label">Instalar OmT Apps</p>
       <p class="small muted">${install}</p>
       <div class="body-actions"><button class="done-btn" type="button">Cerrar</button></div>
@@ -583,6 +588,7 @@ function openMenu() {
     `<button class="menu-item" role="menuitem" data-i="${i}">${icon(m.icon, 20)}<span>${m.label}</span></button>`).join('');
   menu.querySelectorAll('.menu-item').forEach((b) => b.addEventListener('click', () => {
     closeMenu();
+    trackLabel(MENU[b.dataset.i].label);
     MENU[b.dataset.i].run();
   }));
   const r = $('menu-btn').getBoundingClientRect();

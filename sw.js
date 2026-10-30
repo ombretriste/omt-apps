@@ -1,5 +1,5 @@
 // Cambia la versión al modificar archivos para que los móviles descarguen la nueva versión
-const CACHE = 'omtapps-v62';
+const CACHE = 'omtapps-v63';
 const ASSETS = [
   './',
   'index.html',
@@ -37,7 +37,7 @@ self.addEventListener('activate', (event) => {
 
 // Red primero (para recibir actualizaciones); caché si no hay conexión
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET' || new URL(event.request.url).origin !== location.origin) return;
+  if (event.request.method !== 'GET' || new URL(event.request.url).origin !== location.origin || new URL(event.request.url).pathname.startsWith('/_vercel/')) return;
   event.respondWith(
     fetch(event.request)
       .then((response) => {
