@@ -91,7 +91,7 @@ const APPS = [
     section: 'dia',
     name: 'Chat<b>CTRL</b>',
     plain: 'ChatCTRL',
-    version: '0.14.2',
+    version: '0.15.0',
     color: '#a3e635',
     grad: 'linear-gradient(135deg, #ecfccb, #a3e635 55%, #65a30d)',
     tagline: 'Chats privados con tus amigos, sin cuentas.',
