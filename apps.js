@@ -3,7 +3,7 @@
 // Cada sección es un bloque deslizable; c1/c2 tiñen su fondo
 const SECTIONS = [
   { id: 'finanzas', title: 'Finanzas', text: 'Tu dinero y tus nóminas, al detalle.', c1: '#7c8cff', c2: '#34d399' },
-  { id: 'dia', title: 'Día a día', text: 'Tus documentos, tus textos, tus tareas, tus chats y tus videollamadas, bajo control.', c1: '#fbbf24', c2: '#a3e635' },
+  { id: 'dia', title: 'Día a día', text: 'Tus documentos, tus textos, tus hojas de cálculo, tus tareas, tus chats y tus videollamadas, bajo control.', c1: '#fbbf24', c2: '#a3e635' },
   { id: 'trabajo', title: 'Trabajo', text: 'Organiza tus días en remoto y calcula lo que te cuesta la huelga.', c1: '#5aa9ff', c2: '#fb923c' },
   { id: 'ocio', title: 'Ocio', text: 'Viajes y sorteos: para disfrutar del tiempo libre.', c1: '#fb7185', c2: '#b57cff' },
 ];
@@ -146,6 +146,25 @@ const APPS = [
     ],
     tags: ['PDF', 'Word'],
     url: 'https://text-app-olive.vercel.app/',
+  },
+  {
+    id: 'sheetctrl',
+    section: 'dia',
+    name: 'Sheet<b>CTRL</b>',
+    plain: 'SheetCTRL',
+    version: '0.1.0',
+    color: '#22c55e',
+    grad: 'linear-gradient(135deg, #bbf7d0, #22c55e 55%, #15803d)',
+    tagline: 'Hojas de cálculo sencillas, compatibles con Excel.',
+    description: 'Crea hojas de cálculo con las fórmulas de siempre, en español, o abre tus archivos de Excel para seguir trabajando con ellos. Todo se guarda en tu dispositivo.',
+    features: [
+      'Más de 100 funciones, con ayuda mientras escribes',
+      'Abre y exporta archivos .xlsx y .csv',
+      'Formatos, varias hojas, ordenar y rellenar series',
+      'Sin cuentas: tus libros se quedan en tu dispositivo',
+    ],
+    tags: ['Excel', 'Sin conexión'],
+    url: 'https://sheet-app-lake.vercel.app/',
   },
   {
     id: 'upto40',
