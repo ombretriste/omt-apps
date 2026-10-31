@@ -1,7 +1,7 @@
 /* =====================================================================
    OmT Apps — portal con todas las apps de OmT Finance (datos en apps.js)
    ===================================================================== */
-const APP_VERSION = '0.9.3';
+const APP_VERSION = '0.10.0';
 // Uso de la app en Vercel Analytics: es una sola página, así que cada función se cuenta como una
 // página virtual. Solo se envía el nombre de la función, nunca datos de la app.
 const track = (path) => { try { window.va?.('pageview', { path }); } catch (_) { /* sin analítica */ } };
@@ -94,7 +94,7 @@ let introDone = false;
 // (con muchas apps, en pantallas estrechas se juntan un poco más para que quepan todas)
 function introIconSize() {
   const n = APPS.length;
-  const gap = innerWidth < 360 ? 4 : innerWidth < 480 ? 8 : 12;
+  const gap = innerWidth < 360 ? 2 : innerWidth < 480 ? 8 : 12;
   const ii = Math.floor(Math.max(20, Math.min(64, (innerWidth - 32 - (n - 1) * gap) / n)));
   $('intro')?.style.setProperty('--ii', `${ii}px`);
   $('intro')?.style.setProperty('--row-gap', `${gap}px`);
