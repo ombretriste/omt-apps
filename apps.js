@@ -52,7 +52,7 @@ const APPS = [
     section: 'finanzas',
     name: 'Market<b>CTRL</b>',
     plain: 'MarketCTRL',
-    version: '0.1.4',
+    version: '0.1.5',
     color: '#a78bfa',
     grad: 'linear-gradient(135deg, #6d28d9, #a78bfa 55%, #fcd34d)',
     tagline: 'Tus acciones y cryptos, día a día.',
