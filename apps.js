@@ -190,7 +190,7 @@ const APPS = [
     section: 'trabajo',
     name: 'Sheet<b>CTRL</b>',
     plain: 'SheetCTRL',
-    version: '0.2.0',
+    version: '0.2.1',
     color: '#22c55e',
     grad: 'linear-gradient(135deg, #bbf7d0, #22c55e 55%, #15803d)',
     tagline: 'Hojas de cálculo sencillas, compatibles con Excel.',
