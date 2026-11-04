@@ -170,7 +170,7 @@ const APPS = [
     section: 'trabajo',
     name: 'Text<b>CTRL</b>',
     plain: 'TextCTRL',
-    version: '0.3.0',
+    version: '0.3.1',
     color: '#818cf8',
     grad: 'linear-gradient(135deg, #c7d2fe, #818cf8 55%, #4f46e5)',
     tagline: 'Escribe y guarda en PDF o Word, sin más.',
