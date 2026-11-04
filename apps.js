@@ -2,7 +2,7 @@
 // url vacía = se muestra como «Próximamente».
 // Cada sección es un bloque deslizable; c1/c2 tiñen su fondo
 const SECTIONS = [
-  { id: 'finanzas', title: 'Finanzas', text: 'Tu dinero y tus nóminas, al detalle.', c1: '#7c8cff', c2: '#34d399' },
+  { id: 'finanzas', title: 'Finanzas', text: 'Tu dinero, tus nóminas y tus inversiones, al detalle.', c1: '#7c8cff', c2: '#34d399' },
   { id: 'dia', title: 'Día a día', text: 'Tus documentos, tus tareas, tus chats y tus videollamadas, bajo control.', c1: '#fbbf24', c2: '#a3e635' },
   { id: 'trabajo', title: 'Trabajo', text: 'Tus días en remoto, lo que te cuesta la huelga, tus textos, tus hojas de cálculo y tu nube.', c1: '#5aa9ff', c2: '#fb923c' },
   { id: 'ocio', title: 'Ocio', text: 'Viajes y sorteos: para disfrutar del tiempo libre.', c1: '#fb7185', c2: '#b57cff' },
@@ -46,6 +46,25 @@ const APPS = [
     ],
     tags: ['Nube', 'PDF'],
     url: 'https://nominas-app-rho.vercel.app/',
+  },
+  {
+    id: 'marketctrl',
+    section: 'finanzas',
+    name: 'Market<b>CTRL</b>',
+    plain: 'MarketCTRL',
+    version: '0.1.0',
+    color: '#a78bfa',
+    grad: 'linear-gradient(135deg, #6d28d9, #a78bfa 55%, #fcd34d)',
+    tagline: 'Tus acciones y cryptos, día a día.',
+    description: 'Sigue las acciones y criptomonedas que tienes en UnderCTRL con cotización en directo: gráficos de un día a todo el histórico, ficha de cada valor, cotizaciones pasadas, seguimiento diario de la cartera y lo que te ha rendido.',
+    features: [
+      'Cotización en directo y gráficos de 1 día a todo el histórico',
+      'Seguimiento día a día con mejor y peor día',
+      'Rendimiento latente, realizado, dividendos y por periodos',
+      'Ficha de cada valor y vínculo con UnderCTRL',
+    ],
+    tags: ['UnderCTRL', 'Bolsa'],
+    url: 'https://market-app-tau-neon.vercel.app/',
   },
   {
     id: 'docctrl',

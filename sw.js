@@ -1,5 +1,5 @@
 // Cambia la versión al modificar archivos para que los móviles descarguen la nueva versión
-const CACHE = 'omtapps-v94';
+const CACHE = 'omtapps-v95';
 const ASSETS = [
   './',
   'index.html',
@@ -15,6 +15,7 @@ const ASSETS = [
   'icons/apple-touch-icon.png',
   'icons/apps/underctrl.svg',
   'icons/apps/payctrl.svg',
+  'icons/apps/marketctrl.svg',
   'icons/apps/docctrl.svg',
   'icons/apps/taskctrl.svg',
   'icons/apps/upto40.svg',
