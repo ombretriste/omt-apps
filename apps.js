@@ -113,7 +113,7 @@ const APPS = [
     section: 'dia',
     name: 'Meet<b>CTRL</b>',
     plain: 'MeetCTRL',
-    version: '0.2.0',
+    version: '0.2.1',
     color: '#22d3ee',
     grad: 'linear-gradient(135deg, #a5f3fc, #22d3ee 55%, #0891b2)',
     tagline: 'Videollamadas y pantalla compartida, sin cuentas.',
