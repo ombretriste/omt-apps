@@ -4,7 +4,7 @@
 const SECTIONS = [
   { id: 'finanzas', title: 'Finanzas', text: 'Tu dinero, tus nóminas y tus inversiones, al detalle.', c1: '#7c8cff', c2: '#34d399' },
   { id: 'dia', title: 'Día a día', text: 'Tus documentos, tus tareas, tus chats y tus videollamadas, bajo control.', c1: '#fbbf24', c2: '#a3e635' },
-  { id: 'trabajo', title: 'Trabajo', text: 'Tus días en remoto, lo que te cuesta la huelga, tus textos, tus hojas de cálculo y tu nube.', c1: '#5aa9ff', c2: '#fb923c' },
+  { id: 'trabajo', title: 'Trabajo', text: 'Tus días en remoto, lo que te cuesta la huelga, tus textos, tus hojas de cálculo, tus PDF y tu nube.', c1: '#5aa9ff', c2: '#fb923c' },
   { id: 'ocio', title: 'Ocio', text: 'Viajes y sorteos: para disfrutar del tiempo libre.', c1: '#fb7185', c2: '#b57cff' },
 ];
 
@@ -241,6 +241,25 @@ const APPS = [
     ],
     tags: ['Nube', 'Cifrado'],
     url: 'https://cloud-app-wheat.vercel.app/',
+  },
+  {
+    id: 'splitctrl',
+    section: 'trabajo',
+    name: 'Split<b>CTRL</b>',
+    plain: 'SplitCTRL',
+    version: '0.1.0',
+    color: '#f87171',
+    grad: 'linear-gradient(135deg, #fecaca, #f87171 55%, #b91c1c)',
+    tagline: 'Divide tus PDF en un momento.',
+    description: 'Separa un PDF en varios archivos: corta entre las páginas que quieras, en una página por archivo o cada cierto número de páginas, y ponle nombre a cada parte. Las páginas se copian tal cual, sin perder calidad, y el PDF nunca sale de tu dispositivo.',
+    features: [
+      'Miniaturas de todas las páginas y corte con un toque',
+      'Una página por archivo o cada N páginas, de golpe',
+      'Nombre propio para cada archivo',
+      'Guarda los PDF sueltos o todo en un .zip',
+    ],
+    tags: ['PDF', 'Privado'],
+    url: '',
   },
   {
     id: 'tripctrl',
