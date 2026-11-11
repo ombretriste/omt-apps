@@ -259,7 +259,7 @@ const APPS = [
       'Guarda los PDF sueltos o todo en un .zip',
     ],
     tags: ['PDF', 'Privado'],
-    url: '',
+    url: 'https://split-app-r7y3.vercel.app/',
   },
   {
     id: 'tripctrl',
