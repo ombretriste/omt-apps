@@ -14,7 +14,7 @@ const APPS = [
     section: 'finanzas',
     name: 'Under<b>CTRL</b>',
     plain: 'UnderCTRL',
-    version: '1.62.0',
+    version: '1.63.0',
     color: '#a78bfa',
     grad: 'linear-gradient(135deg, #4f8cff, #a78bfa 55%, #f472b6)',
     tagline: 'Tu posición financiera, en tiempo real.',
